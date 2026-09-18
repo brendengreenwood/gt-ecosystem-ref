@@ -81,10 +81,11 @@ export function ActorCard({ actor, onClick, isActive, isMobile, outsideLens, dim
     <button
       onClick={onClick}
       style={{
-        background: isActive ? "color-mix(in oklch, var(--border) 46%, transparent)" : "color-mix(in oklch, var(--foreground) 2%, transparent)",
-        border: `1px solid ${isActive ? `color-mix(in oklch, ${actor.accent} 40%, transparent)` : "color-mix(in oklch, var(--border) 46%, transparent)"}`,
-        borderRadius: "calc(var(--radius) * 2)",
-        padding: isMobile ? "10px 12px" : "14px 16px",
+        background: isActive ? "color-mix(in oklch, var(--primary) 9%, var(--card))" : "var(--card)",
+        border: `1px solid ${isActive ? "var(--primary)" : "var(--border)"}`,
+        borderRadius: "calc(var(--radius) * 1.5)",
+        padding: isMobile ? "10px 12px" : "12px 14px",
+        boxShadow: isActive ? "var(--shadow-sm)" : "none",
         cursor: "pointer",
         transition: "background-color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out)",
         textAlign: "left",
@@ -96,18 +97,17 @@ export function ActorCard({ actor, onClick, isActive, isMobile, outsideLens, dim
         <ActorIcon actor={actor} size={isMobile ? 18 : 20} color={isActive ? "var(--primary)" : "var(--muted-foreground)"} />
         <span style={{
           fontFamily: "var(--font-sans)",
-          fontSize: isMobile ? 14 : 15,
-          color: isActive ? "var(--foreground)" : "color-mix(in oklch, var(--foreground) 75%, transparent)",
-          fontWeight: 400,
+          fontSize: isMobile ? 14 : 14,
+          color: "var(--foreground)",
+          fontWeight: isActive ? 650 : 500,
         }}>{actor.name}</span>
         {outsideLens && <OutsideLensMark />}
       </div>
       <div style={{
-        fontSize: 9,
-        fontFamily: "var(--font-mono)",
-        textTransform: "uppercase",
-        letterSpacing: "0.1em",
-        color: conf.color,
+        fontSize: 11,
+        fontFamily: "var(--font-sans)",
+        fontWeight: 500,
+        color: "var(--muted-foreground)",
         marginLeft: 28,
       }}>
         {actor.strategies?.length || 0} strategies · {conf.label}
@@ -125,10 +125,11 @@ function StrategyRow({ strategy, actorId, filters }) {
     <div
       onClick={() => setOpen(!open)}
       style={{
-        background: open ? "color-mix(in oklch, var(--foreground) 4%, transparent)" : "transparent",
-        border: `1px solid ${open ? "color-mix(in oklch, var(--border) 52%, transparent)" : "color-mix(in oklch, var(--foreground) 4%, transparent)"}`,
-        borderRadius: 5,
-        padding: "12px 16px",
+        background: "var(--card)",
+        border: `1px solid ${open ? "color-mix(in oklch, var(--primary) 55%, var(--border))" : "var(--border)"}`,
+        borderRadius: "calc(var(--radius) * 1.5)",
+        padding: "14px 16px",
+        boxShadow: open ? "var(--shadow-sm)" : "none",
         cursor: "pointer",
         transition: "background-color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out)",
       }}
@@ -137,7 +138,8 @@ function StrategyRow({ strategy, actorId, filters }) {
         <div style={{ display: "flex", alignItems: "center", gap: 10, flex: 1, flexWrap: "wrap" }}>
           <span style={{
             fontFamily: "var(--font-sans)",
-            fontSize: 15,
+            fontSize: 14,
+            fontWeight: 600,
             color: "var(--foreground)",
           }}>{strategy.name}</span>
           {strategy.risk && strategy.risk !== "n/a" && (

@@ -67,8 +67,23 @@
   --info-300: oklch(0.800 0.100 247);
   --info-400: oklch(0.690 0.140 250);
   --info-500: oklch(0.585 0.165 252);
-  --viz-plum-400: oklch(0.730 0.130 329);
-  --viz-plum-500: oklch(0.620 0.135 329);
+
+  --viz-crop-400: oklch(0.730 0.150 132);
+  --viz-crop-500: oklch(0.620 0.150 132);
+  --viz-wheat-400: oklch(0.730 0.150 98);
+  --viz-wheat-500: oklch(0.620 0.150 94);
+  --viz-clay-400: oklch(0.730 0.130 47);
+  --viz-clay-500: oklch(0.620 0.130 46);
+  --viz-sky-400: oklch(0.730 0.130 242);
+  --viz-sky-500: oklch(0.620 0.135 243);
+  --viz-plum-400: oklch(0.730 0.145 330);
+  --viz-plum-500: oklch(0.620 0.150 331);
+  --viz-teal-400: oklch(0.730 0.100 196);
+  --viz-teal-500: oklch(0.620 0.100 196);
+  --viz-rust-400: oklch(0.730 0.118 40);
+  --viz-rust-500: oklch(0.620 0.110 38);
+  --viz-slate-400: oklch(0.730 0.028 250);
+  --viz-slate-500: oklch(0.620 0.030 250);
 
   --commodity-corn-300: oklch(0.828 0.128 81);
   --commodity-corn-400: oklch(0.742 0.150 80);

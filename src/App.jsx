@@ -79,7 +79,7 @@ export default function App() {
       `}</style>
 
       <header style={{ padding: isMobile ? "16px" : "22px 28px", borderBottom: "1px solid var(--border)", background: "var(--card)", boxShadow: "var(--shadow-sm)" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1440, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, marginBottom: 16 }}>
             <div>
               <div style={{ fontSize: 13, fontWeight: 650, letterSpacing: "-0.01em" }}>Grain Trading Reference</div>
@@ -104,7 +104,7 @@ export default function App() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "20px 16px 48px" : "24px 28px 64px" }}>
+      <main style={{ maxWidth: 1440, margin: "0 auto", padding: isMobile ? "16px 12px 40px" : "24px 28px 64px" }}>
         {(view === "actors" || view === "dynamics") && (
           <FilterBar
             filters={filters}
@@ -135,10 +135,10 @@ export default function App() {
             {actor && <ActorDetail actor={actor} isMobile={isMobile} filters={filters} />}
           </div>
         ) : (
-          <div style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "280px minmax(0, 1fr)", gap: 24, alignItems: "flex-start" }}>
             <nav style={{
-              width: 260,
-              flexShrink: 0,
+              width: "100%",
+              minWidth: 0,
               position: "sticky",
               top: 20,
               maxHeight: "calc(100vh - 40px)",
@@ -151,16 +151,15 @@ export default function App() {
                 return (
                   <div key={tier.id} style={{ marginBottom: 16 }}>
                     <div style={{
-                      fontSize: 9,
+                      fontSize: 12,
                       fontFamily: "var(--font-sans)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.15em",
-                      color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
-                      padding: "0 0 6px",
+                      fontWeight: 650,
+                      color: "var(--foreground)",
+                      padding: "0 4px 7px",
                       marginBottom: 4,
                     }}>
                       {tier.label}
-                      <span style={{ display: "block", fontSize: 8, letterSpacing: "0.08em", color: "color-mix(in oklch, var(--border) 98%, transparent)", marginTop: 1 }}>{tier.subtitle}</span>
+                      <span style={{ display: "block", fontSize: 11, fontWeight: 400, color: "var(--muted-foreground)", marginTop: 2 }}>{tier.subtitle}</span>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                       {rows.map(({ actor: a, outsideLens, dimmed }) => (

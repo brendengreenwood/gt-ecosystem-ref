@@ -45,10 +45,11 @@ function DynamicCard({ dynamic }) {
     <div
       onClick={() => setOpen(!open)}
       style={{
-        background: open ? "color-mix(in oklch, var(--foreground) 4%, transparent)" : "color-mix(in oklch, var(--foreground) 2%, transparent)",
-        border: `1px solid ${open ? "color-mix(in oklch, var(--border) 65%, transparent)" : "color-mix(in oklch, var(--foreground) 5%, transparent)"}`,
-        borderRadius: "calc(var(--radius) * 2)",
-        padding: "14px 18px",
+        background: "var(--card)",
+        border: `1px solid ${open ? "color-mix(in oklch, var(--primary) 55%, var(--border))" : "var(--border)"}`,
+        borderRadius: "calc(var(--radius) * 1.5)",
+        padding: "16px 18px",
+        boxShadow: open ? "var(--shadow-sm)" : "none",
         cursor: "pointer",
         transition: "background-color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out)",
       }}
@@ -56,8 +57,8 @@ function DynamicCard({ dynamic }) {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3 style={{
           fontFamily: "var(--font-sans)",
-          fontSize: 16,
-          fontWeight: 400,
+          fontSize: 15,
+          fontWeight: 600,
           color: "var(--foreground)",
           margin: 0,
         }}>{dynamic.name}</h3>
