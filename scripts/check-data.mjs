@@ -433,6 +433,18 @@ for (const [key, p] of Object.entries(PERSONAS)) {
   }
 }
 
+// persona audience + order (product requirement: Cargill, Risk, Merchant, Originator)
+const AUDIENCES = new Set(["primary", "secondary", "context"]);
+for (const [key, p] of Object.entries(PERSONAS)) {
+  if (!AUDIENCES.has(p.audience)) fail(`persona ${key}: audience "${p.audience}" not in primary|secondary|context`);
+}
+const primaries = Object.keys(PERSONAS).filter(k => PERSONAS[k].audience === "primary");
+const secondaries = Object.keys(PERSONAS).filter(k => PERSONAS[k].audience === "secondary");
+if (primaries.join() !== "merchant") fail(`expected exactly one primary persona "merchant", got [${primaries}]`);
+if (secondaries.join() !== "originator") fail(`expected exactly one secondary persona "originator", got [${secondaries}]`);
+const EXPECTED_ORDER = ["trading-house-org", "risk", "merchant", "originator"];
+if (Object.keys(PERSONAS).join() !== EXPECTED_ORDER.join()) fail(`persona order is [${Object.keys(PERSONAS)}], expected [${EXPECTED_ORDER}]`);
+
 // getInboundEffects must carry commodities through
 const inbound = getInboundEffects("producer");
 if (!inbound.length || !Array.isArray(inbound[0].commodities) || !inbound[0].commodities.length) {
