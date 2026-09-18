@@ -45,14 +45,14 @@ const cases = [
     html => html.includes('aria-pressed="true"') && /<button type="button"[^>]*>Clear<\/button>/.test(html) ? null : "missing aria-pressed=true or Clear button"],
 ];
 let fail = 0;
-if (Object.keys(COMMODITIES).length === 3) console.log("ok ", "COMMODITIES:3-keys", 3);
+if (Object.keys(COMMODITIES).length === 3) console.log("ok", "COMMODITIES:3-keys", 3);
 else { fail++; console.log("FAIL", "COMMODITIES:3-keys", `expected 3 keys, got ${Object.keys(COMMODITIES).length}`); }
 for (const [name, el, assert] of cases) {
   try {
     const out = renderToString(el);
     const err = assert ? assert(out) : null;
     if (err) { fail++; console.log("FAIL", name, err); }
-    else console.log("ok ", name, out.length);
+    else console.log("ok", name, out.length);
   }
   catch (e) { fail++; console.log("FAIL", name, e.message); }
 }
