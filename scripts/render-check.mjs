@@ -3,7 +3,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 
 const vite = await createServer({ root: process.cwd(), server: { middlewareMode: true }, appType: "custom" });
-const { ACTORS } = await vite.ssrLoadModule("/src/data/actors.js");
+const { ACTORS, COMMODITIES } = await vite.ssrLoadModule("/src/data/actors.js");
 const { PERSONAS } = await vite.ssrLoadModule("/src/data/personas.js");
 const TH = await vite.ssrLoadModule("/src/views/TradingHouseView.jsx");
 const AV = await vite.ssrLoadModule("/src/views/ActorView.jsx");
@@ -20,6 +20,8 @@ const cases = [
   ["MobileActorSelector", h(AV.MobileActorSelector, { selectedActor: "producer", onSelect() {}, isOpen: true, onToggle() {} })],
 ];
 let fail = 0;
+if (Object.keys(COMMODITIES).length === 3) console.log("ok ", "COMMODITIES:3-keys", 3);
+else { fail++; console.log("FAIL", "COMMODITIES:3-keys", `expected 3 keys, got ${Object.keys(COMMODITIES).length}`); }
 for (const [name, el] of cases) {
   try { const out = renderToString(el); console.log("ok ", name, out.length); }
   catch (e) { fail++; console.log("FAIL", name, e.message); }
