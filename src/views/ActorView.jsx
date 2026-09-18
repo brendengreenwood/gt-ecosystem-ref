@@ -7,9 +7,74 @@ import {
   groupEffectsByType
 } from "../data/cross-references";
 import { ACTORS, CONFIDENCE, TIERS } from "../data/actors";
+import { PERSONAS } from "../data/personas";
 import { riskColor } from "../theme";
 
-export function ActorCard({ actor, onClick, isActive, isMobile }) {
+const NO_FILTERS = { commodity: null, lens: null, effectType: null };
+
+// Lens set: the persona's primary ∪ secondary actors. Cargill (trading-house) is always in it.
+function lensActorSet(lens) {
+  if (!lens || !PERSONAS[lens]) return null;
+  const p = PERSONAS[lens];
+  return new Set([...p.primaryActors, ...p.secondaryActors, "trading-house"]);
+}
+
+function actorHasCommodity(actor, commodity) {
+  return !commodity || actor.strategies.some(s => s.commodities.includes(commodity));
+}
+
+// Actors to list under the current filters. The selected actor is always kept
+// (flagged `outsideLens` when the lens would otherwise hide it).
+export function listActors(filters, selectedActor) {
+  const set = lensActorSet(filters.lens);
+  return ACTORS
+    .filter(a => !set || set.has(a.id) || a.id === selectedActor)
+    .map(a => ({
+      actor: a,
+      outsideLens: !!set && !set.has(a.id),
+      dimmed: !actorHasCommodity(a, filters.commodity),
+    }));
+}
+
+// All three dimensions AND-compose. `otherEndpoint` is the effect's far end
+// (target for outbound, source for inbound).
+function filterEffects(effects, filters, otherEndpoint) {
+  const set = lensActorSet(filters.lens);
+  return effects.filter(e =>
+    (!filters.commodity || e.commodities.includes(filters.commodity)) &&
+    (!filters.effectType || e.type === filters.effectType) &&
+    (!set || set.has(otherEndpoint(e)))
+  );
+}
+
+function OutsideLensMark() {
+  return (
+    <span style={{
+      fontSize: 9,
+      fontFamily: "'JetBrains Mono', monospace",
+      textTransform: "uppercase",
+      letterSpacing: "0.1em",
+      color: "rgba(232,228,220,0.4)",
+      border: "1px solid rgba(255,255,255,0.12)",
+      borderRadius: 2,
+      padding: "1px 5px",
+    }}>outside lens</span>
+  );
+}
+
+function EmptyState({ text }) {
+  return (
+    <p style={{
+      fontFamily: "'Source Serif 4', Georgia, serif",
+      fontSize: 13,
+      fontStyle: "italic",
+      color: "rgba(232,228,220,0.4)",
+      margin: 0,
+    }}>{text}</p>
+  );
+}
+
+export function ActorCard({ actor, onClick, isActive, isMobile, outsideLens, dimmed }) {
   const conf = CONFIDENCE[actor.confidence];
   return (
     <button
@@ -23,9 +88,10 @@ export function ActorCard({ actor, onClick, isActive, isMobile }) {
         transition: "all 0.2s ease",
         textAlign: "left",
         width: "100%",
+        opacity: dimmed ? 0.4 : 1,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 4, flexWrap: "wrap" }}>
         <span style={{ fontSize: isMobile ? 18 : 20 }}>{actor.icon}</span>
         <span style={{
           fontFamily: "'Newsreader', 'DM Serif Display', Georgia, serif",
@@ -33,6 +99,7 @@ export function ActorCard({ actor, onClick, isActive, isMobile }) {
           color: isActive ? "#E8E4DC" : "rgba(232,228,220,0.75)",
           fontWeight: 400,
         }}>{actor.name}</span>
+        {outsideLens && <OutsideLensMark />}
       </div>
       <div style={{
         fontSize: 9,
@@ -48,10 +115,10 @@ export function ActorCard({ actor, onClick, isActive, isMobile }) {
   );
 }
 
-function StrategyRow({ strategy, actorId }) {
+function StrategyRow({ strategy, actorId, filters }) {
   const [open, setOpen] = useState(false);
   const rc = riskColor(strategy.risk);
-  const effects = getOutboundEffects(actorId, strategy.name);
+  const effects = filterEffects(getOutboundEffects(actorId, strategy.name), filters, e => e.targetActor);
 
   return (
     <div
@@ -184,13 +251,14 @@ function StrategyRow({ strategy, actorId }) {
   );
 }
 
-function AffectedBySection({ actorId, isMobile }) {
-  const inboundEffects = getInboundEffects(actorId);
+function AffectedBySection({ actorId, isMobile, filters }) {
+  const allInbound = getInboundEffects(actorId);
+  const inboundEffects = filterEffects(allInbound, filters, e => e.sourceActor);
   const grouped = groupEffectsByType(inboundEffects);
   const effectTypeOrder = ['opportunity', 'signal', 'constraint', 'pressure'];
-  const hasAny = inboundEffects.length > 0;
 
-  if (!hasAny) return null;
+  const filterActive = filters.commodity || filters.lens || filters.effectType;
+  if (allInbound.length === 0 && !filterActive) return null;
 
   return (
     <div style={{ marginBottom: isMobile ? 20 : 28 }}>
@@ -202,6 +270,7 @@ function AffectedBySection({ actorId, isMobile }) {
         color: "rgba(255,255,255,0.35)",
         marginBottom: 10,
       }}>Affected By Other Actors</div>
+      {inboundEffects.length === 0 && <EmptyState text="No cross-references for this filter." />}
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {effectTypeOrder.map(type => {
           const effects = grouped[type];
@@ -265,12 +334,15 @@ function AffectedBySection({ actorId, isMobile }) {
   );
 }
 
-export function ActorDetail({ actor, isMobile }) {
+export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
   const conf = CONFIDENCE[actor.confidence];
+  const lensSet = lensActorSet(filters.lens);
+  const outsideLens = !!lensSet && !lensSet.has(actor.id);
+  const strategies = (actor.strategies || []).filter(s => !filters.commodity || s.commodities.includes(filters.commodity));
   return (
     <div style={{ animation: "fadeIn 0.3s ease" }}>
       <div style={{ marginBottom: isMobile ? 20 : 28 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6, flexWrap: "wrap" }}>
           <span style={{ fontSize: isMobile ? 24 : 28 }}>{actor.icon}</span>
           <h2 style={{
             fontFamily: "'Newsreader', 'DM Serif Display', Georgia, serif",
@@ -279,6 +351,7 @@ export function ActorDetail({ actor, isMobile }) {
             margin: 0,
             color: actor.accent,
           }}>{actor.name}</h2>
+          {outsideLens && <OutsideLensMark />}
         </div>
         <div style={{
           display: "inline-flex",
@@ -358,7 +431,7 @@ export function ActorDetail({ actor, isMobile }) {
         </div>
       )}
 
-      <AffectedBySection actorId={actor.id} isMobile={isMobile} />
+      <AffectedBySection actorId={actor.id} isMobile={isMobile} filters={filters} />
 
       {actor.strategies && actor.strategies.length > 0 && (
         <div>
@@ -369,10 +442,11 @@ export function ActorDetail({ actor, isMobile }) {
             letterSpacing: "0.15em",
             color: "rgba(255,255,255,0.35)",
             marginBottom: 10,
-          }}>Pricing Strategies ({actor.strategies.length})</div>
+          }}>Pricing Strategies ({strategies.length})</div>
+          {strategies.length === 0 && <EmptyState text="No strategies for this filter." />}
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            {actor.strategies.map((s) => (
-              <StrategyRow key={s.name} strategy={s} actorId={actor.id} />
+            {strategies.map((s) => (
+              <StrategyRow key={s.name} strategy={s} actorId={actor.id} filters={filters} />
             ))}
           </div>
         </div>
@@ -381,8 +455,9 @@ export function ActorDetail({ actor, isMobile }) {
   );
 }
 
-export function MobileActorSelector({ selectedActor, onSelect, isOpen, onToggle }) {
+export function MobileActorSelector({ selectedActor, onSelect, isOpen, onToggle, filters = NO_FILTERS }) {
   const actor = ACTORS.find(a => a.id === selectedActor);
+  const listed = listActors(filters, selectedActor);
 
   return (
     <div style={{ marginBottom: 16 }}>
@@ -426,32 +501,38 @@ export function MobileActorSelector({ selectedActor, onSelect, isOpen, onToggle 
           maxHeight: "60vh",
           overflowY: "auto",
         }}>
-          {TIERS.map(tier => (
-            <div key={tier.id} style={{ marginBottom: 12 }}>
-              <div style={{
-                fontSize: 9,
-                fontFamily: "'JetBrains Mono', monospace",
-                textTransform: "uppercase",
-                letterSpacing: "0.15em",
-                color: "rgba(255,255,255,0.25)",
-                padding: "0 0 6px",
-                marginBottom: 4,
-              }}>
-                {tier.label}
+          {TIERS.map(tier => {
+            const rows = listed.filter(r => r.actor.tier === tier.id);
+            if (rows.length === 0) return null;
+            return (
+              <div key={tier.id} style={{ marginBottom: 12 }}>
+                <div style={{
+                  fontSize: 9,
+                  fontFamily: "'JetBrains Mono', monospace",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  color: "rgba(255,255,255,0.25)",
+                  padding: "0 0 6px",
+                  marginBottom: 4,
+                }}>
+                  {tier.label}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  {rows.map(({ actor: a, outsideLens, dimmed }) => (
+                    <ActorCard
+                      key={a.id}
+                      actor={a}
+                      isActive={selectedActor === a.id}
+                      onClick={() => { onSelect(a.id); onToggle(); }}
+                      isMobile={true}
+                      outsideLens={outsideLens}
+                      dimmed={dimmed}
+                    />
+                  ))}
+                </div>
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                {ACTORS.filter(a => a.tier === tier.id).map(a => (
-                  <ActorCard
-                    key={a.id}
-                    actor={a}
-                    isActive={selectedActor === a.id}
-                    onClick={() => { onSelect(a.id); onToggle(); }}
-                    isMobile={true}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

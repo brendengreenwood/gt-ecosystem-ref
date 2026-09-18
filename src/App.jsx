@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { ACTORS, TIERS } from "./data/actors";
 import { TheHouseView, TradingHouseView } from "./views/TradingHouseView";
-import { ActorCard, ActorDetail, MobileActorSelector } from "./views/ActorView";
+import { ActorCard, ActorDetail, MobileActorSelector, listActors } from "./views/ActorView";
 import { SystemDynamicsView } from "./views/SystemDynamicsView";
+import FilterBar from "./views/FilterBar";
 import { SYSTEM_DYNAMICS } from "./data/system-dynamics";
 
 const STRATEGY_COUNT = ACTORS.reduce((n, a) => n + a.strategies.length, 0);
+const NO_FILTERS = { commodity: null, lens: null, effectType: null };
 
 export default function App() {
   const [view, setView] = useState("the-house");
@@ -13,6 +15,7 @@ export default function App() {
   const [selectedPersona, setSelectedPersona] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [selectorOpen, setSelectorOpen] = useState(false);
+  const [filters, setFilters] = useState(NO_FILTERS);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -22,6 +25,7 @@ export default function App() {
   }, []);
 
   const actor = ACTORS.find(a => a.id === selectedActor);
+  const listed = listActors(filters, selectedActor);
 
   return (
     <div style={{
@@ -96,6 +100,14 @@ export default function App() {
       </header>
 
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: isMobile ? "20px 16px 48px" : "24px 28px 64px" }}>
+        {(view === "actors" || view === "dynamics") && (
+          <FilterBar
+            filters={filters}
+            onChange={setFilters}
+            showEffectType={view === "actors"}
+            isMobile={isMobile}
+          />
+        )}
         {view === "the-house" ? (
           <TheHouseView isMobile={isMobile} />
         ) : view === "trading-house" ? (
@@ -105,7 +117,7 @@ export default function App() {
             isMobile={isMobile}
           />
         ) : view === "dynamics" ? (
-          <SystemDynamicsView isMobile={isMobile} />
+          <SystemDynamicsView isMobile={isMobile} filters={filters} />
         ) : isMobile ? (
           <div>
             <MobileActorSelector
@@ -113,8 +125,9 @@ export default function App() {
               onSelect={setSelectedActor}
               isOpen={selectorOpen}
               onToggle={() => setSelectorOpen(!selectorOpen)}
+              filters={filters}
             />
-            {actor && <ActorDetail actor={actor} isMobile={isMobile} />}
+            {actor && <ActorDetail actor={actor} isMobile={isMobile} filters={filters} />}
           </div>
         ) : (
           <div style={{ display: "flex", gap: 28, alignItems: "flex-start" }}>
@@ -127,37 +140,43 @@ export default function App() {
               overflowY: "auto",
               paddingRight: 8,
             }}>
-              {TIERS.map(tier => (
-                <div key={tier.id} style={{ marginBottom: 16 }}>
-                  <div style={{
-                    fontSize: 9,
-                    fontFamily: "'JetBrains Mono', monospace",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.15em",
-                    color: "rgba(255,255,255,0.25)",
-                    padding: "0 0 6px",
-                    marginBottom: 4,
-                  }}>
-                    {tier.label}
-                    <span style={{ display: "block", fontSize: 8, letterSpacing: "0.08em", color: "rgba(255,255,255,0.15)", marginTop: 1 }}>{tier.subtitle}</span>
+              {TIERS.map(tier => {
+                const rows = listed.filter(r => r.actor.tier === tier.id);
+                if (rows.length === 0) return null;
+                return (
+                  <div key={tier.id} style={{ marginBottom: 16 }}>
+                    <div style={{
+                      fontSize: 9,
+                      fontFamily: "'JetBrains Mono', monospace",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.15em",
+                      color: "rgba(255,255,255,0.25)",
+                      padding: "0 0 6px",
+                      marginBottom: 4,
+                    }}>
+                      {tier.label}
+                      <span style={{ display: "block", fontSize: 8, letterSpacing: "0.08em", color: "rgba(255,255,255,0.15)", marginTop: 1 }}>{tier.subtitle}</span>
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+                      {rows.map(({ actor: a, outsideLens, dimmed }) => (
+                        <ActorCard
+                          key={a.id}
+                          actor={a}
+                          isActive={selectedActor === a.id}
+                          onClick={() => setSelectedActor(a.id)}
+                          isMobile={false}
+                          outsideLens={outsideLens}
+                          dimmed={dimmed}
+                        />
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                    {ACTORS.filter(a => a.tier === tier.id).map(a => (
-                      <ActorCard
-                        key={a.id}
-                        actor={a}
-                        isActive={selectedActor === a.id}
-                        onClick={() => setSelectedActor(a.id)}
-                        isMobile={false}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </nav>
 
             <div style={{ flex: 1, minWidth: 0 }} key={selectedActor}>
-              {actor && <ActorDetail actor={actor} isMobile={isMobile} />}
+              {actor && <ActorDetail actor={actor} isMobile={isMobile} filters={filters} />}
             </div>
           </div>
         )}

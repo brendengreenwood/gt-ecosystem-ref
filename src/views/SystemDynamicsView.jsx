@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { SYSTEM_DYNAMICS } from "../data/system-dynamics";
 
-export function SystemDynamicsView({ isMobile }) {
+export function SystemDynamicsView({ isMobile, filters = {} }) {
+  const dynamics = SYSTEM_DYNAMICS.filter(d => !filters.commodity || d.commodities.includes(filters.commodity));
   return (
     <div style={{ animation: "fadeIn 0.3s ease" }}>
       <h2 style={{
@@ -20,8 +21,17 @@ export function SystemDynamicsView({ isMobile }) {
       }}>
         The forces that shape how all the actors interact. These are the rules of the game.
       </p>
+      {dynamics.length === 0 && (
+        <p style={{
+          fontFamily: "'Source Serif 4', Georgia, serif",
+          fontSize: 13,
+          fontStyle: "italic",
+          color: "rgba(232,228,220,0.4)",
+          margin: 0,
+        }}>No system dynamics for this filter.</p>
+      )}
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {SYSTEM_DYNAMICS.map((d) => (
+        {dynamics.map((d) => (
           <DynamicCard key={d.name} dynamic={d} />
         ))}
       </div>
