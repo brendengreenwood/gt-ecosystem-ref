@@ -1,27 +1,27 @@
 export const EFFECT_TYPES = {
   opportunity: {
     label: "Opportunity",
-    color: "#6B8F63",
-    bg: "rgba(107,143,99,0.12)",
-    border: "rgba(107,143,99,0.3)"
+    color: "var(--success-400)",
+    bg: "color-mix(in oklch, var(--success-400) 12%, transparent)",
+    border: "color-mix(in oklch, var(--success-400) 30%, transparent)"
   },
   signal: {
     label: "Signal",
-    color: "#5A8A9E",
-    bg: "rgba(90,138,158,0.12)",
-    border: "rgba(90,138,158,0.3)"
+    color: "var(--info-400)",
+    bg: "color-mix(in oklch, var(--info-400) 12%, transparent)",
+    border: "color-mix(in oklch, var(--info-400) 30%, transparent)"
   },
   constraint: {
     label: "Constraint",
-    color: "#C49B20",
-    bg: "rgba(196,155,32,0.12)",
-    border: "rgba(196,155,32,0.3)"
+    color: "var(--warning-400)",
+    bg: "color-mix(in oklch, var(--warning-400) 12%, transparent)",
+    border: "color-mix(in oklch, var(--warning-400) 30%, transparent)"
   },
   pressure: {
     label: "Pressure",
-    color: "#C8463C",
-    bg: "rgba(200,70,60,0.12)",
-    border: "rgba(200,70,60,0.3)"
+    color: "var(--error-400)",
+    bg: "color-mix(in oklch, var(--error-400) 12%, transparent)",
+    border: "color-mix(in oklch, var(--error-400) 30%, transparent)"
   },
 };
 

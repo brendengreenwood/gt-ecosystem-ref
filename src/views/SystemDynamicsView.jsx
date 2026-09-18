@@ -4,19 +4,19 @@ import { SYSTEM_DYNAMICS } from "../data/system-dynamics";
 export function SystemDynamicsView({ isMobile, filters = {} }) {
   const dynamics = SYSTEM_DYNAMICS.filter(d => !filters.commodity || d.commodities.includes(filters.commodity));
   return (
-    <div style={{ animation: "fadeIn 0.3s ease" }}>
+    <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
       <h2 style={{
         fontFamily: "'Newsreader', 'DM Serif Display', Georgia, serif",
         fontSize: isMobile ? 24 : 28,
         fontWeight: 400,
-        color: "#E8E4DC",
+        color: "var(--foreground)",
         margin: "0 0 8px",
       }}>System Dynamics</h2>
       <p style={{
         fontFamily: "'Source Serif 4', Georgia, serif",
         fontSize: isMobile ? 14 : 14.5,
         lineHeight: 1.7,
-        color: "rgba(232,228,220,0.5)",
+        color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
         margin: "0 0 28px",
       }}>
         The forces that shape how all the actors interact. These are the rules of the game.
@@ -26,7 +26,7 @@ export function SystemDynamicsView({ isMobile, filters = {} }) {
           fontFamily: "'Source Serif 4', Georgia, serif",
           fontSize: 13,
           fontStyle: "italic",
-          color: "rgba(232,228,220,0.4)",
+          color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
           margin: 0,
         }}>No system dynamics for this filter.</p>
       )}
@@ -45,12 +45,12 @@ function DynamicCard({ dynamic }) {
     <div
       onClick={() => setOpen(!open)}
       style={{
-        background: open ? "rgba(255,255,255,0.04)" : "rgba(255,255,255,0.015)",
-        border: `1px solid ${open ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.05)"}`,
-        borderRadius: 6,
+        background: open ? "color-mix(in oklch, var(--foreground) 4%, transparent)" : "color-mix(in oklch, var(--foreground) 2%, transparent)",
+        border: `1px solid ${open ? "color-mix(in oklch, var(--border) 65%, transparent)" : "color-mix(in oklch, var(--foreground) 5%, transparent)"}`,
+        borderRadius: "calc(var(--radius) * 2)",
         padding: "14px 18px",
         cursor: "pointer",
-        transition: "all 0.2s ease",
+        transition: "all var(--duration-base) var(--ease-out)",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -58,14 +58,14 @@ function DynamicCard({ dynamic }) {
           fontFamily: "'Newsreader', Georgia, serif",
           fontSize: 16,
           fontWeight: 400,
-          color: "#E8E4DC",
+          color: "var(--foreground)",
           margin: 0,
         }}>{dynamic.name}</h3>
         <span style={{
-          color: "rgba(255,255,255,0.25)",
+          color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
           fontSize: 16,
           transform: open ? "rotate(45deg)" : "rotate(0deg)",
-          transition: "transform 0.2s ease",
+          transition: "transform var(--duration-base) var(--ease-out)",
         }}>+</span>
       </div>
       {open && (
@@ -73,7 +73,7 @@ function DynamicCard({ dynamic }) {
           fontFamily: "'Source Serif 4', Georgia, serif",
           fontSize: 14.5,
           lineHeight: 1.75,
-          color: "rgba(232,228,220,0.75)",
+          color: "color-mix(in oklch, var(--foreground) 75%, transparent)",
           margin: "12px 0 0",
         }}>{dynamic.description}</p>
       )}

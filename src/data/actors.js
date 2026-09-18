@@ -1,20 +1,20 @@
 export const CONFIDENCE = {
-  high: { label: "High confidence", color: "#6B8F63" },
-  medium: { label: "Medium confidence", color: "#C49B20" },
-  low: { label: "Lower confidence", color: "#C8463C" },
+  high: { label: "High confidence", color: "var(--success-400)" },
+  medium: { label: "Medium confidence", color: "var(--warning-400)" },
+  low: { label: "Lower confidence", color: "var(--error-400)" },
 };
 
 export const DATA_TYPE_STYLES = {
-  direct: { label: "Direct", color: "#6B8F63", bg: "rgba(107,143,99,0.15)" },
-  received: { label: "From Partner", color: "#C49B20", bg: "rgba(196,155,32,0.15)" },
-  proprietary: { label: "Proprietary", color: "#7B68AE", bg: "rgba(123,104,174,0.15)" },
-  market: { label: "Market Data", color: "#5A8A9E", bg: "rgba(90,138,158,0.15)" },
+  direct: { label: "Direct", color: "var(--success-400)", bg: "color-mix(in oklch, var(--success-400) 15%, transparent)" },
+  received: { label: "From Partner", color: "var(--warning-400)", bg: "color-mix(in oklch, var(--warning-400) 15%, transparent)" },
+  proprietary: { label: "Proprietary", color: "var(--viz-plum-400)", bg: "color-mix(in oklch, var(--viz-plum-400) 15%, transparent)" },
+  market: { label: "Market Data", color: "var(--info-400)", bg: "color-mix(in oklch, var(--info-400) 15%, transparent)" },
 };
 
 export const COMMODITIES = {
-  corn: { label: "Corn", color: "#C49B20" },
-  soybeans: { label: "Soybeans", color: "#6B8F63" },
-  wheat: { label: "Wheat", color: "#9E7A52" },
+  corn: { label: "Corn", color: "var(--commodity-corn-400)" },
+  soybeans: { label: "Soybeans", color: "var(--commodity-soy-400)" },
+  wheat: { label: "Wheat", color: "var(--commodity-wheat-400)" },
 };
 
 export const TIERS = [

@@ -30,8 +30,8 @@ export default function App() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#1A1916",
-      color: "#E8E4DC",
+      background: "var(--background)",
+      color: "var(--foreground)",
       fontFamily: "'Source Serif 4', Georgia, serif",
     }}>
       <style>{`
@@ -40,7 +40,7 @@ export default function App() {
         * { box-sizing: border-box; }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb { background: color-mix(in oklch, var(--border) 65%, transparent); border-radius: 2px; }
         button { font-family: inherit; }
 
         .nav-btn {
@@ -52,14 +52,14 @@ export default function App() {
           font-size: 11px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          transition: color 0.15s ease;
+          transition: color var(--duration-fast) var(--ease-out);
           border-bottom: 1.5px solid transparent;
-          color: rgba(232,228,220,0.4);
+          color: color-mix(in oklch, var(--foreground) 40%, transparent);
         }
-        .nav-btn:hover { color: rgba(232,228,220,0.7); }
+        .nav-btn:hover { color: color-mix(in oklch, var(--foreground) 70%, transparent); }
         .nav-btn.active {
-          color: #E8E4DC;
-          border-bottom-color: #E8E4DC;
+          color: var(--foreground);
+          border-bottom-color: var(--foreground);
         }
       `}</style>
 
@@ -69,7 +69,7 @@ export default function App() {
           fontFamily: "'JetBrains Mono', monospace",
           textTransform: "uppercase",
           letterSpacing: "0.2em",
-          color: "rgba(232,228,220,0.3)",
+          color: "color-mix(in oklch, var(--foreground) 30%, transparent)",
           marginBottom: 10,
         }}>Grain Trading Reference</div>
         <h1 style={{
@@ -82,16 +82,16 @@ export default function App() {
         }}>The Ecosystem</h1>
         <p style={{
           fontSize: isMobile ? 14 : 15,
-          color: "rgba(232,228,220,0.45)",
+          color: "color-mix(in oklch, var(--foreground) 45%, transparent)",
           margin: "0 0 24px",
           maxWidth: 600,
           lineHeight: 1.6,
         }}>
           How grain gets priced, who prices it, and why they make the moves they make.
-          {!isMobile && <span style={{ color: "rgba(232,228,220,0.3)" }}> {ACTORS.length} actors. {SYSTEM_DYNAMICS.length} system dynamics. {STRATEGY_COUNT} strategies.</span>}
+          {!isMobile && <span style={{ color: "color-mix(in oklch, var(--foreground) 30%, transparent)" }}> {ACTORS.length} actors. {SYSTEM_DYNAMICS.length} system dynamics. {STRATEGY_COUNT} strategies.</span>}
         </p>
 
-        <div style={{ display: "flex", gap: 20, borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: 0 }}>
+        <div style={{ display: "flex", gap: 20, borderBottom: "1px solid color-mix(in oklch, var(--foreground) 6%, transparent)", marginBottom: 0 }}>
           <button className={`nav-btn ${view === "the-house" ? "active" : ""}`} onClick={() => setView("the-house")}>The House</button>
           <button className={`nav-btn ${view === "trading-house" ? "active" : ""}`} onClick={() => setView("trading-house")}>Roles</button>
           <button className={`nav-btn ${view === "actors" ? "active" : ""}`} onClick={() => setView("actors")}>Ecosystem</button>
@@ -150,12 +150,12 @@ export default function App() {
                       fontFamily: "'JetBrains Mono', monospace",
                       textTransform: "uppercase",
                       letterSpacing: "0.15em",
-                      color: "rgba(255,255,255,0.25)",
+                      color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
                       padding: "0 0 6px",
                       marginBottom: 4,
                     }}>
                       {tier.label}
-                      <span style={{ display: "block", fontSize: 8, letterSpacing: "0.08em", color: "rgba(255,255,255,0.15)", marginTop: 1 }}>{tier.subtitle}</span>
+                      <span style={{ display: "block", fontSize: 8, letterSpacing: "0.08em", color: "color-mix(in oklch, var(--border) 98%, transparent)", marginTop: 1 }}>{tier.subtitle}</span>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                       {rows.map(({ actor: a, outsideLens, dimmed }) => (
@@ -184,7 +184,7 @@ export default function App() {
         <div style={{
           marginTop: isMobile ? 32 : 48,
           paddingTop: 20,
-          borderTop: "1px solid rgba(255,255,255,0.05)",
+          borderTop: "1px solid color-mix(in oklch, var(--foreground) 5%, transparent)",
           display: "flex",
           flexDirection: isMobile ? "column" : "row",
           justifyContent: "space-between",
@@ -193,7 +193,7 @@ export default function App() {
           <div style={{
             fontSize: 11,
             fontFamily: "'JetBrains Mono', monospace",
-            color: "rgba(232,228,220,0.25)",
+            color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
             lineHeight: 1.6,
             maxWidth: isMobile ? "100%" : 500,
           }}>
@@ -202,7 +202,7 @@ export default function App() {
           <div style={{
             fontSize: 11,
             fontFamily: "'JetBrains Mono', monospace",
-            color: "rgba(232,228,220,0.2)",
+            color: "color-mix(in oklch, var(--foreground) 20%, transparent)",
           }}>
             v2 · ecosystem view
           </div>

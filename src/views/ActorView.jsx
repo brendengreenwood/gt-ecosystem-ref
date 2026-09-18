@@ -54,9 +54,9 @@ function OutsideLensMark() {
       fontFamily: "'JetBrains Mono', monospace",
       textTransform: "uppercase",
       letterSpacing: "0.1em",
-      color: "rgba(232,228,220,0.4)",
-      border: "1px solid rgba(255,255,255,0.12)",
-      borderRadius: 2,
+      color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
+      border: "1px solid color-mix(in oklch, var(--border) 78%, transparent)",
+      borderRadius: "var(--radius)",
       padding: "1px 5px",
     }}>outside lens</span>
   );
@@ -68,7 +68,7 @@ function EmptyState({ text }) {
       fontFamily: "'Source Serif 4', Georgia, serif",
       fontSize: 13,
       fontStyle: "italic",
-      color: "rgba(232,228,220,0.4)",
+      color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
       margin: 0,
     }}>{text}</p>
   );
@@ -80,12 +80,12 @@ export function ActorCard({ actor, onClick, isActive, isMobile, outsideLens, dim
     <button
       onClick={onClick}
       style={{
-        background: isActive ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.02)",
-        border: `1px solid ${isActive ? actor.accent + "66" : "rgba(255,255,255,0.07)"}`,
-        borderRadius: 6,
+        background: isActive ? "color-mix(in oklch, var(--border) 46%, transparent)" : "color-mix(in oklch, var(--foreground) 2%, transparent)",
+        border: `1px solid ${isActive ? `color-mix(in oklch, ${actor.accent} 40%, transparent)` : "color-mix(in oklch, var(--border) 46%, transparent)"}`,
+        borderRadius: "calc(var(--radius) * 2)",
         padding: isMobile ? "10px 12px" : "14px 16px",
         cursor: "pointer",
-        transition: "all 0.2s ease",
+        transition: "all var(--duration-base) var(--ease-out)",
         textAlign: "left",
         width: "100%",
         opacity: dimmed ? 0.4 : 1,
@@ -96,7 +96,7 @@ export function ActorCard({ actor, onClick, isActive, isMobile, outsideLens, dim
         <span style={{
           fontFamily: "'Newsreader', 'DM Serif Display', Georgia, serif",
           fontSize: isMobile ? 14 : 15,
-          color: isActive ? "#E8E4DC" : "rgba(232,228,220,0.75)",
+          color: isActive ? "var(--foreground)" : "color-mix(in oklch, var(--foreground) 75%, transparent)",
           fontWeight: 400,
         }}>{actor.name}</span>
         {outsideLens && <OutsideLensMark />}
@@ -124,12 +124,12 @@ function StrategyRow({ strategy, actorId, filters }) {
     <div
       onClick={() => setOpen(!open)}
       style={{
-        background: open ? "rgba(255,255,255,0.04)" : "transparent",
-        border: `1px solid ${open ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.04)"}`,
+        background: open ? "color-mix(in oklch, var(--foreground) 4%, transparent)" : "transparent",
+        border: `1px solid ${open ? "color-mix(in oklch, var(--border) 52%, transparent)" : "color-mix(in oklch, var(--foreground) 4%, transparent)"}`,
         borderRadius: 5,
         padding: "12px 16px",
         cursor: "pointer",
-        transition: "all 0.2s ease",
+        transition: "all var(--duration-base) var(--ease-out)",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
@@ -137,7 +137,7 @@ function StrategyRow({ strategy, actorId, filters }) {
           <span style={{
             fontFamily: "'Newsreader', Georgia, serif",
             fontSize: 15,
-            color: "#E8E4DC",
+            color: "var(--foreground)",
           }}>{strategy.name}</span>
           {strategy.risk && strategy.risk !== "n/a" && (
             <span style={{
@@ -146,7 +146,7 @@ function StrategyRow({ strategy, actorId, filters }) {
               textTransform: "uppercase",
               letterSpacing: "0.1em",
               padding: "1px 7px",
-              borderRadius: 3,
+              borderRadius: "var(--radius)",
               background: rc.bg,
               color: rc.text,
               border: `1px solid ${rc.border}`,
@@ -156,17 +156,17 @@ function StrategyRow({ strategy, actorId, filters }) {
             <span style={{
               fontSize: 9,
               fontFamily: "'JetBrains Mono', monospace",
-              color: "rgba(255,255,255,0.3)",
+              color: "color-mix(in oklch, var(--foreground) 30%, transparent)",
             }}>
               · {effects.length} effect{effects.length !== 1 ? 's' : ''}
             </span>
           )}
         </div>
         <span style={{
-          color: "rgba(255,255,255,0.25)",
+          color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
           fontSize: 16,
           transform: open ? "rotate(45deg)" : "rotate(0deg)",
-          transition: "transform 0.2s ease",
+          transition: "transform var(--duration-base) var(--ease-out)",
           flexShrink: 0,
         }}>+</span>
       </div>
@@ -176,33 +176,33 @@ function StrategyRow({ strategy, actorId, filters }) {
             fontFamily: "'Source Serif 4', Georgia, serif",
             fontSize: 14,
             lineHeight: 1.7,
-            color: "rgba(232,228,220,0.75)",
+            color: "color-mix(in oklch, var(--foreground) 75%, transparent)",
             margin: 0,
           }}>{strategy.description}</p>
           {(strategy.timing || strategy.tradeoff) && (
-            <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginTop: 10, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            <div style={{ display: "flex", gap: 24, flexWrap: "wrap", marginTop: 10, paddingTop: 10, borderTop: "1px solid color-mix(in oklch, var(--foreground) 5%, transparent)" }}>
               {strategy.timing && (
                 <div>
-                  <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(255,255,255,0.3)" }}>Timing</div>
-                  <div style={{ fontSize: 13, color: "rgba(232,228,220,0.65)", fontFamily: "'Source Serif 4', Georgia, serif", marginTop: 2 }}>{strategy.timing}</div>
+                  <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.12em", color: "color-mix(in oklch, var(--foreground) 30%, transparent)" }}>Timing</div>
+                  <div style={{ fontSize: 13, color: "color-mix(in oklch, var(--foreground) 65%, transparent)", fontFamily: "'Source Serif 4', Georgia, serif", marginTop: 2 }}>{strategy.timing}</div>
                 </div>
               )}
               {strategy.tradeoff && (
                 <div>
-                  <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(255,255,255,0.3)" }}>Core Tradeoff</div>
-                  <div style={{ fontSize: 13, color: "rgba(232,228,220,0.65)", fontFamily: "'Source Serif 4', Georgia, serif", marginTop: 2 }}>{strategy.tradeoff}</div>
+                  <div style={{ fontSize: 9, fontFamily: "'JetBrains Mono', monospace", textTransform: "uppercase", letterSpacing: "0.12em", color: "color-mix(in oklch, var(--foreground) 30%, transparent)" }}>Core Tradeoff</div>
+                  <div style={{ fontSize: 13, color: "color-mix(in oklch, var(--foreground) 65%, transparent)", fontFamily: "'Source Serif 4', Georgia, serif", marginTop: 2 }}>{strategy.tradeoff}</div>
                 </div>
               )}
             </div>
           )}
           {effects.length > 0 && (
-            <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+            <div style={{ marginTop: 14, paddingTop: 14, borderTop: "1px solid color-mix(in oklch, var(--foreground) 5%, transparent)" }}>
               <div style={{
                 fontSize: 9,
                 fontFamily: "'JetBrains Mono', monospace",
                 textTransform: "uppercase",
                 letterSpacing: "0.12em",
-                color: "rgba(255,255,255,0.3)",
+                color: "color-mix(in oklch, var(--foreground) 30%, transparent)",
                 marginBottom: 10,
               }}>Effects on Other Actors</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
@@ -213,7 +213,7 @@ function StrategyRow({ strategy, actorId, filters }) {
                       padding: "8px 12px",
                       background: et.bg,
                       border: `1px solid ${et.border}`,
-                      borderRadius: 4,
+                      borderRadius: "var(--radius)",
                     }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                         <span style={{
@@ -227,8 +227,8 @@ function StrategyRow({ strategy, actorId, filters }) {
                           textTransform: "uppercase",
                           letterSpacing: "0.08em",
                           padding: "1px 5px",
-                          borderRadius: 2,
-                          background: "rgba(0,0,0,0.2)",
+                          borderRadius: "var(--radius)",
+                          background: "color-mix(in oklch, var(--shadow-color) 20%, transparent)",
                           color: et.color,
                         }}>{et.label}</span>
                       </div>
@@ -236,7 +236,7 @@ function StrategyRow({ strategy, actorId, filters }) {
                         fontFamily: "'Source Serif 4', Georgia, serif",
                         fontSize: 13,
                         lineHeight: 1.6,
-                        color: "rgba(232,228,220,0.7)",
+                        color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
                         margin: 0,
                       }}>{effect.description}</p>
                     </div>
@@ -267,7 +267,7 @@ function AffectedBySection({ actorId, isMobile, filters }) {
         fontFamily: "'JetBrains Mono', monospace",
         textTransform: "uppercase",
         letterSpacing: "0.15em",
-        color: "rgba(255,255,255,0.35)",
+        color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
         marginBottom: 10,
       }}>Affected By Other Actors</div>
       {inboundEffects.length === 0 && <EmptyState text="No cross-references for this filter." />}
@@ -309,18 +309,18 @@ function AffectedBySection({ actorId, isMobile, filters }) {
                     <div style={{
                       fontFamily: "'JetBrains Mono', monospace",
                       fontSize: 10,
-                      color: "rgba(255,255,255,0.5)",
+                      color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
                       marginBottom: 4,
                     }}>
                       From: <span style={{ color: et.color }}>{getActorName(effect.sourceActor)}</span>
                       {" → "}
-                      <span style={{ color: "rgba(255,255,255,0.4)" }}>"{effect.strategy}"</span>
+                      <span style={{ color: "color-mix(in oklch, var(--foreground) 40%, transparent)" }}>"{effect.strategy}"</span>
                     </div>
                     <p style={{
                       fontFamily: "'Source Serif 4', Georgia, serif",
                       fontSize: 13,
                       lineHeight: 1.6,
-                      color: "rgba(232,228,220,0.7)",
+                      color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
                       margin: 0,
                     }}>{effect.description}</p>
                   </div>
@@ -340,7 +340,7 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
   const outsideLens = !!lensSet && !lensSet.has(actor.id);
   const strategies = (actor.strategies || []).filter(s => !filters.commodity || s.commodities.includes(filters.commodity));
   return (
-    <div style={{ animation: "fadeIn 0.3s ease" }}>
+    <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
       <div style={{ marginBottom: isMobile ? 20 : 28 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6, flexWrap: "wrap" }}>
           <span style={{ fontSize: isMobile ? 24 : 28 }}>{actor.icon}</span>
@@ -358,9 +358,9 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
           alignItems: "center",
           gap: 6,
           padding: "3px 10px",
-          borderRadius: 3,
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.06)",
+          borderRadius: "var(--radius)",
+          background: "color-mix(in oklch, var(--foreground) 4%, transparent)",
+          border: "1px solid color-mix(in oklch, var(--foreground) 6%, transparent)",
           marginBottom: 16,
         }}>
           <div style={{ width: 6, height: 6, borderRadius: "50%", background: conf.color }} />
@@ -382,14 +382,14 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
             fontFamily: "'JetBrains Mono', monospace",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.35)",
+            color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
             marginBottom: 6,
           }}>{section.label}</div>
           <p style={{
             fontFamily: "'Source Serif 4', Georgia, serif",
             fontSize: isMobile ? 14 : 14.5,
             lineHeight: 1.75,
-            color: "rgba(232,228,220,0.8)",
+            color: "color-mix(in oklch, var(--foreground) 80%, transparent)",
             margin: 0,
           }}>{section.content}</p>
         </div>
@@ -402,15 +402,15 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
             fontFamily: "'JetBrains Mono', monospace",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.35)",
+            color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
             marginBottom: 10,
           }}>Key Relationships</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {actor.relationships.map((rel, i) => (
               <div key={i} style={{
                 padding: "10px 14px",
-                background: "rgba(255,255,255,0.025)",
-                border: "1px solid rgba(255,255,255,0.05)",
+                background: "color-mix(in oklch, var(--foreground) 3%, transparent)",
+                border: "1px solid color-mix(in oklch, var(--foreground) 5%, transparent)",
                 borderRadius: 5,
               }}>
                 <span style={{
@@ -422,7 +422,7 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
                   fontFamily: "'Source Serif 4', Georgia, serif",
                   fontSize: 13,
                   lineHeight: 1.6,
-                  color: "rgba(232,228,220,0.65)",
+                  color: "color-mix(in oklch, var(--foreground) 65%, transparent)",
                   margin: "4px 0 0",
                 }}>{rel.nature}</p>
               </div>
@@ -440,7 +440,7 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
             fontFamily: "'JetBrains Mono', monospace",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.35)",
+            color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
             marginBottom: 10,
           }}>Pricing Strategies ({strategies.length})</div>
           {strategies.length === 0 && <EmptyState text="No strategies for this filter." />}
@@ -465,9 +465,9 @@ export function MobileActorSelector({ selectedActor, onSelect, isOpen, onToggle,
         onClick={onToggle}
         style={{
           width: "100%",
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.1)",
-          borderRadius: 8,
+          background: "color-mix(in oklch, var(--foreground) 4%, transparent)",
+          border: "1px solid color-mix(in oklch, var(--border) 65%, transparent)",
+          borderRadius: "calc(var(--radius) * 2)",
           padding: "12px 16px",
           cursor: "pointer",
           display: "flex",
@@ -480,23 +480,23 @@ export function MobileActorSelector({ selectedActor, onSelect, isOpen, onToggle,
           <span style={{
             fontFamily: "'Newsreader', Georgia, serif",
             fontSize: 16,
-            color: "#E8E4DC",
+            color: "var(--foreground)",
           }}>{actor?.name}</span>
         </div>
         <span style={{
-          color: "rgba(255,255,255,0.4)",
+          color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
           fontSize: 12,
           transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-          transition: "transform 0.2s ease",
+          transition: "transform var(--duration-base) var(--ease-out)",
         }}>▼</span>
       </button>
 
       {isOpen && (
         <div style={{
           marginTop: 8,
-          background: "rgba(0,0,0,0.3)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          borderRadius: 8,
+          background: "color-mix(in oklch, var(--shadow-color) 30%, transparent)",
+          border: "1px solid color-mix(in oklch, var(--border) 52%, transparent)",
+          borderRadius: "calc(var(--radius) * 2)",
           padding: 12,
           maxHeight: "60vh",
           overflowY: "auto",
@@ -511,7 +511,7 @@ export function MobileActorSelector({ selectedActor, onSelect, isOpen, onToggle,
                   fontFamily: "'JetBrains Mono', monospace",
                   textTransform: "uppercase",
                   letterSpacing: "0.15em",
-                  color: "rgba(255,255,255,0.25)",
+                  color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
                   padding: "0 0 6px",
                   marginBottom: 4,
                 }}>

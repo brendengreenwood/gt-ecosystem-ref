@@ -5,7 +5,7 @@ export function TheHouseView({ isMobile }) {
   const house = PERSONAS["trading-house-org"];
 
   return (
-    <div style={{ animation: "fadeIn 0.3s ease" }}>
+    <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
       <div style={{
         padding: isMobile ? 20 : 32,
         background: `linear-gradient(135deg, ${house.color}22 0%, transparent 60%)`,
@@ -26,7 +26,7 @@ export function TheHouseView({ isMobile }) {
             <div style={{
               fontSize: 13,
               fontFamily: "'Source Serif 4', Georgia, serif",
-              color: "rgba(232,228,220,0.5)",
+              color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
               marginTop: 4,
             }}>{house.tagline}</div>
           </div>
@@ -36,7 +36,7 @@ export function TheHouseView({ isMobile }) {
           fontFamily: "'Source Serif 4', Georgia, serif",
           fontSize: isMobile ? 15 : 16,
           lineHeight: 1.8,
-          color: "rgba(232,228,220,0.85)",
+          color: "color-mix(in oklch, var(--foreground) 85%, transparent)",
           margin: "0 0 24px",
         }}>{house.role}</p>
 
@@ -51,14 +51,14 @@ export function TheHouseView({ isMobile }) {
               fontFamily: "'JetBrains Mono', monospace",
               textTransform: "uppercase",
               letterSpacing: "0.15em",
-              color: "rgba(255,255,255,0.35)",
+              color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
               marginBottom: 8,
             }}>The Goal</div>
             <p style={{
               fontFamily: "'Source Serif 4', Georgia, serif",
               fontSize: 14,
               lineHeight: 1.7,
-              color: "rgba(232,228,220,0.7)",
+              color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
               margin: 0,
             }}>{house.goal}</p>
           </div>
@@ -68,14 +68,14 @@ export function TheHouseView({ isMobile }) {
               fontFamily: "'JetBrains Mono', monospace",
               textTransform: "uppercase",
               letterSpacing: "0.15em",
-              color: "rgba(255,255,255,0.35)",
+              color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
               marginBottom: 8,
             }}>World View</div>
             <p style={{
               fontFamily: "'Source Serif 4', Georgia, serif",
               fontSize: 14,
               lineHeight: 1.7,
-              color: "rgba(232,228,220,0.7)",
+              color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
               margin: 0,
             }}>{house.worldView}</p>
           </div>
@@ -88,7 +88,7 @@ export function TheHouseView({ isMobile }) {
           fontFamily: "'JetBrains Mono', monospace",
           textTransform: "uppercase",
           letterSpacing: "0.15em",
-          color: "rgba(255,255,255,0.35)",
+          color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
           marginBottom: 12,
         }}>The Information Edge</div>
         <div style={{
@@ -103,7 +103,7 @@ export function TheHouseView({ isMobile }) {
                 padding: "12px 16px",
                 background: style.bg,
                 border: `1px solid ${style.color}33`,
-                borderRadius: 6,
+                borderRadius: "calc(var(--radius) * 2)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
                   <span style={{
@@ -112,21 +112,21 @@ export function TheHouseView({ isMobile }) {
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
                     padding: "2px 6px",
-                    borderRadius: 3,
-                    background: "rgba(0,0,0,0.3)",
+                    borderRadius: "var(--radius)",
+                    background: "color-mix(in oklch, var(--shadow-color) 30%, transparent)",
                     color: style.color,
                   }}>{style.label}</span>
                   <span style={{
                     fontFamily: "'Newsreader', Georgia, serif",
                     fontSize: 14,
-                    color: "#E8E4DC",
+                    color: "var(--foreground)",
                   }}>{data.label}</span>
                 </div>
                 <p style={{
                   fontFamily: "'Source Serif 4', Georgia, serif",
                   fontSize: 13,
                   lineHeight: 1.6,
-                  color: "rgba(232,228,220,0.6)",
+                  color: "color-mix(in oklch, var(--foreground) 60%, transparent)",
                   margin: 0,
                 }}>{data.description}</p>
               </div>
@@ -141,16 +141,16 @@ export function TheHouseView({ isMobile }) {
           fontFamily: "'JetBrains Mono', monospace",
           textTransform: "uppercase",
           letterSpacing: "0.15em",
-          color: "rgba(255,255,255,0.35)",
+          color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
           marginBottom: 12,
         }}>Strategic Decisions</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           {house.decisions.map((decision, i) => (
             <div key={i} style={{
               padding: "12px 16px",
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderRadius: 6,
+              background: "color-mix(in oklch, var(--foreground) 3%, transparent)",
+              border: "1px solid color-mix(in oklch, var(--foreground) 6%, transparent)",
+              borderRadius: "calc(var(--radius) * 2)",
             }}>
               <span style={{
                 fontFamily: "'Newsreader', Georgia, serif",
@@ -160,7 +160,7 @@ export function TheHouseView({ isMobile }) {
               <span style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
                 fontSize: 14,
-                color: "rgba(232,228,220,0.5)",
+                color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
               }}> — {decision.description}</span>
             </div>
           ))}
@@ -173,7 +173,7 @@ export function TheHouseView({ isMobile }) {
           fontFamily: "'JetBrains Mono', monospace",
           textTransform: "uppercase",
           letterSpacing: "0.15em",
-          color: "rgba(255,255,255,0.35)",
+          color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
           marginBottom: 12,
         }}>The Organization</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -185,7 +185,7 @@ export function TheHouseView({ isMobile }) {
                 padding: "14px 18px",
                 background: `${relPartner.color}15`,
                 border: `1px solid ${relPartner.color}33`,
-                borderRadius: 8,
+                borderRadius: "calc(var(--radius) * 2)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
                   <span style={{ fontSize: 22 }}>{relPartner.icon}</span>
@@ -197,14 +197,14 @@ export function TheHouseView({ isMobile }) {
                   <span style={{
                     fontSize: 9,
                     fontFamily: "'JetBrains Mono', monospace",
-                    color: "rgba(255,255,255,0.3)",
+                    color: "color-mix(in oklch, var(--foreground) 30%, transparent)",
                   }}>↓ reports to the house</span>
                 </div>
                 <p style={{
                   fontFamily: "'Source Serif 4', Georgia, serif",
                   fontSize: 14,
                   lineHeight: 1.7,
-                  color: "rgba(232,228,220,0.7)",
+                  color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
                   margin: 0,
                 }}>{rel.dynamic}</p>
               </div>
@@ -218,20 +218,20 @@ export function TheHouseView({ isMobile }) {
 
 export function TradingHouseView({ selectedPersona, onSelectPersona, isMobile }) {
   return (
-    <div style={{ animation: "fadeIn 0.3s ease" }}>
+    <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
       <div style={{ marginBottom: isMobile ? 20 : 28 }}>
         <h2 style={{
           fontFamily: "'Newsreader', 'DM Serif Display', Georgia, serif",
           fontSize: isMobile ? 24 : 28,
           fontWeight: 400,
-          color: "#E8E4DC",
+          color: "var(--foreground)",
           margin: "0 0 8px",
         }}>Trading House View</h2>
         <p style={{
           fontFamily: "'Source Serif 4', Georgia, serif",
           fontSize: isMobile ? 14 : 14.5,
           lineHeight: 1.7,
-          color: "rgba(232,228,220,0.5)",
+          color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
           margin: 0,
         }}>
           How Cargill sees and operates on the ecosystem. The Merchant is the role this reference is built to onboard; the Originator is its closest counterpart. Cargill and Risk are the context they operate inside.
@@ -249,8 +249,8 @@ export function TradingHouseView({ selectedPersona, onSelectPersona, isMobile })
       ) : (
         <div style={{
           padding: isMobile ? 24 : 40,
-          background: "rgba(255,255,255,0.02)",
-          border: "1px dashed rgba(255,255,255,0.1)",
+          background: "color-mix(in oklch, var(--foreground) 2%, transparent)",
+          border: "1px dashed color-mix(in oklch, var(--border) 65%, transparent)",
           borderRadius: 12,
           textAlign: "center",
         }}>
@@ -262,7 +262,7 @@ export function TradingHouseView({ selectedPersona, onSelectPersona, isMobile })
           <p style={{
             fontFamily: "'Source Serif 4', Georgia, serif",
             fontSize: 15,
-            color: "rgba(232,228,220,0.5)",
+            color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
             margin: 0,
           }}>
             Select a role above to see how they view the ecosystem
@@ -285,7 +285,7 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
         const isActive = selectedPersona === persona.id;
         const isPrimary = persona.audience === "primary";
         const badge = isPrimary ? "Primary user" : persona.audience === "secondary" ? "Secondary user" : null;
-        const restingBorder = isPrimary ? persona.color + "88" : "rgba(255,255,255,0.08)";
+        const restingBorder = isPrimary ? `color-mix(in oklch, ${persona.color} 55%, transparent)` : "color-mix(in oklch, var(--border) 52%, transparent)";
         return (
           <button
             key={persona.id}
@@ -293,12 +293,12 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
             onClick={() => onSelect(isActive ? null : persona.id)}
             style={{
               flex: isMobile ? "1 1 calc(50% - 4px)" : "0 0 auto",
-              background: isActive ? `${persona.color}22` : isPrimary ? `${persona.color}0D` : "rgba(255,255,255,0.02)",
-              border: `1px solid ${isActive ? persona.color + "66" : restingBorder}`,
-              borderRadius: 8,
+              background: isActive ? `${persona.color}22` : isPrimary ? `${persona.color}0D` : "color-mix(in oklch, var(--foreground) 2%, transparent)",
+              border: `1px solid ${isActive ? `color-mix(in oklch, ${persona.color} 40%, transparent)` : restingBorder}`,
+              borderRadius: "calc(var(--radius) * 2)",
               padding: isMobile ? "12px 14px" : "14px 20px",
               cursor: "pointer",
-              transition: "all 0.2s ease",
+              transition: "all var(--duration-base) var(--ease-out)",
               textAlign: "left",
             }}
           >
@@ -307,7 +307,7 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
               <span style={{
                 fontFamily: "'Newsreader', Georgia, serif",
                 fontSize: isMobile ? 15 : 17,
-                color: isActive ? persona.accent : isPrimary ? "rgba(232,228,220,0.9)" : "rgba(232,228,220,0.75)",
+                color: isActive ? persona.accent : isPrimary ? "color-mix(in oklch, var(--foreground) 90%, transparent)" : "color-mix(in oklch, var(--foreground) 75%, transparent)",
                 fontWeight: 400,
               }}>{persona.shortTitle}</span>
               {badge && (
@@ -318,7 +318,7 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
                   textTransform: "uppercase",
                   color: persona.accent,
                   border: `1px solid ${persona.accent}66`,
-                  borderRadius: 4,
+                  borderRadius: "var(--radius)",
                   padding: "2px 6px",
                   marginLeft: "auto",
                 }}>{badge}</span>
@@ -327,7 +327,7 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
             <div style={{
               fontSize: 11,
               fontFamily: "'Source Serif 4', Georgia, serif",
-              color: isActive ? "rgba(232,228,220,0.6)" : "rgba(232,228,220,0.35)",
+              color: isActive ? "color-mix(in oklch, var(--foreground) 60%, transparent)" : "color-mix(in oklch, var(--foreground) 35%, transparent)",
               marginLeft: isMobile ? 0 : 34,
             }}>
               {persona.tagline}
@@ -344,7 +344,7 @@ function PersonaDashboard({ personaId, isMobile }) {
 
   return (
     <div style={{
-      animation: "fadeIn 0.3s ease",
+      animation: "fadeIn var(--duration-slow) var(--ease-out)",
       marginBottom: isMobile ? 24 : 36,
       padding: isMobile ? 16 : 24,
       background: `linear-gradient(135deg, ${persona.color}11 0%, transparent 60%)`,
@@ -364,7 +364,7 @@ function PersonaDashboard({ personaId, isMobile }) {
           <div style={{
             fontSize: 12,
             fontFamily: "'JetBrains Mono', monospace",
-            color: "rgba(232,228,220,0.4)",
+            color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
             marginTop: 2,
           }}>Your lens on the ecosystem</div>
         </div>
@@ -374,7 +374,7 @@ function PersonaDashboard({ personaId, isMobile }) {
         fontFamily: "'Source Serif 4', Georgia, serif",
         fontSize: isMobile ? 14 : 15,
         lineHeight: 1.75,
-        color: "rgba(232,228,220,0.8)",
+        color: "color-mix(in oklch, var(--foreground) 80%, transparent)",
         margin: "0 0 20px",
       }}>{persona.role}</p>
 
@@ -390,14 +390,14 @@ function PersonaDashboard({ personaId, isMobile }) {
             fontFamily: "'JetBrains Mono', monospace",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.35)",
+            color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
             marginBottom: 8,
           }}>Your Goal</div>
           <p style={{
             fontFamily: "'Source Serif 4', Georgia, serif",
             fontSize: 13,
             lineHeight: 1.7,
-            color: "rgba(232,228,220,0.7)",
+            color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
             margin: 0,
           }}>{persona.goal}</p>
         </div>
@@ -407,14 +407,14 @@ function PersonaDashboard({ personaId, isMobile }) {
             fontFamily: "'JetBrains Mono', monospace",
             textTransform: "uppercase",
             letterSpacing: "0.15em",
-            color: "rgba(255,255,255,0.35)",
+            color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
             marginBottom: 8,
           }}>World View</div>
           <p style={{
             fontFamily: "'Source Serif 4', Georgia, serif",
             fontSize: 13,
             lineHeight: 1.7,
-            color: "rgba(232,228,220,0.7)",
+            color: "color-mix(in oklch, var(--foreground) 70%, transparent)",
             margin: 0,
           }}>{persona.worldView}</p>
         </div>
@@ -426,7 +426,7 @@ function PersonaDashboard({ personaId, isMobile }) {
           fontFamily: "'JetBrains Mono', monospace",
           textTransform: "uppercase",
           letterSpacing: "0.15em",
-          color: "rgba(255,255,255,0.35)",
+          color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
           marginBottom: 10,
         }}>Your Data Access</div>
         <div style={{
@@ -441,7 +441,7 @@ function PersonaDashboard({ personaId, isMobile }) {
                 padding: "10px 14px",
                 background: style.bg,
                 border: `1px solid ${style.color}33`,
-                borderRadius: 6,
+                borderRadius: "calc(var(--radius) * 2)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
                   <span style={{
@@ -450,21 +450,21 @@ function PersonaDashboard({ personaId, isMobile }) {
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
                     padding: "1px 6px",
-                    borderRadius: 3,
-                    background: "rgba(0,0,0,0.2)",
+                    borderRadius: "var(--radius)",
+                    background: "color-mix(in oklch, var(--shadow-color) 20%, transparent)",
                     color: style.color,
                   }}>{style.label}</span>
                   <span style={{
                     fontFamily: "'Newsreader', Georgia, serif",
                     fontSize: 13,
-                    color: "#E8E4DC",
+                    color: "var(--foreground)",
                   }}>{data.label}</span>
                 </div>
                 <p style={{
                   fontFamily: "'Source Serif 4', Georgia, serif",
                   fontSize: 12,
                   lineHeight: 1.6,
-                  color: "rgba(232,228,220,0.6)",
+                  color: "color-mix(in oklch, var(--foreground) 60%, transparent)",
                   margin: 0,
                 }}>{data.description}</p>
               </div>
@@ -479,15 +479,15 @@ function PersonaDashboard({ personaId, isMobile }) {
           fontFamily: "'JetBrains Mono', monospace",
           textTransform: "uppercase",
           letterSpacing: "0.15em",
-          color: "rgba(255,255,255,0.35)",
+          color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
           marginBottom: 10,
         }}>Key Decisions You Make</div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
           {persona.decisions.map((decision, i) => (
             <div key={i} style={{
               padding: "10px 14px",
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.06)",
+              background: "color-mix(in oklch, var(--foreground) 3%, transparent)",
+              border: "1px solid color-mix(in oklch, var(--foreground) 6%, transparent)",
               borderRadius: 5,
             }}>
               <span style={{
@@ -498,7 +498,7 @@ function PersonaDashboard({ personaId, isMobile }) {
               <span style={{
                 fontFamily: "'Source Serif 4', Georgia, serif",
                 fontSize: 13,
-                color: "rgba(232,228,220,0.5)",
+                color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
               }}> — {decision.description}</span>
             </div>
           ))}
@@ -519,7 +519,7 @@ function PersonaDashboard({ personaId, isMobile }) {
             padding: isMobile ? 14 : 18,
             background: `${partnerColor}15`,
             border: `1px solid ${partnerColor}33`,
-            borderRadius: 8,
+            borderRadius: "calc(var(--radius) * 2)",
             marginBottom: idx < (persona.relationships || [persona.relationship]).length - 1 ? 12 : 0,
           }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
@@ -538,7 +538,7 @@ function PersonaDashboard({ personaId, isMobile }) {
               fontFamily: "'Source Serif 4', Georgia, serif",
               fontSize: 14,
               lineHeight: 1.7,
-              color: "rgba(232,228,220,0.75)",
+              color: "color-mix(in oklch, var(--foreground) 75%, transparent)",
               margin: "0 0 12px",
             }}>{rel.dynamic}</p>
             <div style={{
@@ -548,8 +548,8 @@ function PersonaDashboard({ personaId, isMobile }) {
             }}>
               <div style={{
                 padding: "8px 12px",
-                background: "rgba(0,0,0,0.2)",
-                borderRadius: 4,
+                background: "color-mix(in oklch, var(--shadow-color) 20%, transparent)",
+                borderRadius: "var(--radius)",
               }}>
                 <div style={{
                   fontSize: 9,
@@ -563,14 +563,14 @@ function PersonaDashboard({ personaId, isMobile }) {
                   fontFamily: "'Source Serif 4', Georgia, serif",
                   fontSize: 12,
                   lineHeight: 1.6,
-                  color: "rgba(232,228,220,0.6)",
+                  color: "color-mix(in oklch, var(--foreground) 60%, transparent)",
                   margin: 0,
                 }}>{rel.theyProvide}</p>
               </div>
               <div style={{
                 padding: "8px 12px",
-                background: "rgba(0,0,0,0.2)",
-                borderRadius: 4,
+                background: "color-mix(in oklch, var(--shadow-color) 20%, transparent)",
+                borderRadius: "var(--radius)",
               }}>
                 <div style={{
                   fontSize: 9,
@@ -584,7 +584,7 @@ function PersonaDashboard({ personaId, isMobile }) {
                   fontFamily: "'Source Serif 4', Georgia, serif",
                   fontSize: 12,
                   lineHeight: 1.6,
-                  color: "rgba(232,228,220,0.6)",
+                  color: "color-mix(in oklch, var(--foreground) 60%, transparent)",
                   margin: 0,
                 }}>{rel.youProvide}</p>
               </div>
@@ -597,7 +597,7 @@ function PersonaDashboard({ personaId, isMobile }) {
         <div style={{
           fontSize: 10,
           fontFamily: "'JetBrains Mono', monospace",
-          color: "rgba(232,228,220,0.4)",
+          color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
           marginBottom: 8,
         }}>
           <span style={{ color: persona.accent }}>↓</span> Actors most relevant to you are highlighted below
@@ -608,9 +608,9 @@ function PersonaDashboard({ personaId, isMobile }) {
             return a ? (
               <span key={id} style={{
                 padding: "4px 10px",
-                background: "rgba(255,255,255,0.06)",
+                background: "color-mix(in oklch, var(--foreground) 6%, transparent)",
                 border: `1px solid ${persona.color}44`,
-                borderRadius: 4,
+                borderRadius: "var(--radius)",
                 fontSize: 11,
                 fontFamily: "'JetBrains Mono', monospace",
                 color: persona.accent,
@@ -622,12 +622,12 @@ function PersonaDashboard({ personaId, isMobile }) {
             return a ? (
               <span key={id} style={{
                 padding: "4px 10px",
-                background: "rgba(255,255,255,0.02)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 4,
+                background: "color-mix(in oklch, var(--foreground) 2%, transparent)",
+                border: "1px solid color-mix(in oklch, var(--border) 52%, transparent)",
+                borderRadius: "var(--radius)",
                 fontSize: 11,
                 fontFamily: "'JetBrains Mono', monospace",
-                color: "rgba(232,228,220,0.5)",
+                color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
               }}>{a.icon} {a.name}</span>
             ) : null;
           })}

@@ -9,17 +9,17 @@ function Chip({ label, color, selected, onClick }) {
       aria-pressed={selected}
       onClick={onClick}
       style={{
-        background: selected ? color + "33" : "rgba(255,255,255,0.03)",
-        border: `1px solid ${selected ? color : "rgba(255,255,255,0.1)"}`,
-        borderRadius: 3,
+        background: selected ? `color-mix(in oklch, ${color} 20%, transparent)` : "color-mix(in oklch, var(--foreground) 3%, transparent)",
+        border: `1px solid ${selected ? color : "color-mix(in oklch, var(--border) 65%, transparent)"}`,
+        borderRadius: "var(--radius)",
         padding: "3px 9px",
         cursor: "pointer",
         fontFamily: "'JetBrains Mono', monospace",
         fontSize: 10,
         letterSpacing: "0.08em",
         textTransform: "uppercase",
-        color: selected ? "#E8E4DC" : "rgba(232,228,220,0.55)",
-        transition: "all 0.15s ease",
+        color: selected ? "var(--foreground)" : "color-mix(in oklch, var(--foreground) 55%, transparent)",
+        transition: "all var(--duration-fast) var(--ease-out)",
       }}
     >{label}</button>
   );
@@ -33,7 +33,7 @@ function Group({ title, children }) {
         fontFamily: "'JetBrains Mono', monospace",
         textTransform: "uppercase",
         letterSpacing: "0.15em",
-        color: "rgba(255,255,255,0.3)",
+        color: "color-mix(in oklch, var(--foreground) 30%, transparent)",
         marginRight: 2,
       }}>{title}</span>
       {children}
@@ -54,7 +54,7 @@ export default function FilterBar({ filters, onChange, showEffectType, isMobile 
       gap: isMobile ? 10 : 20,
       flexWrap: "wrap",
       padding: "12px 0",
-      borderBottom: "1px solid rgba(255,255,255,0.05)",
+      borderBottom: "1px solid color-mix(in oklch, var(--foreground) 5%, transparent)",
       marginBottom: 20,
     }}>
       <Group title="Commodity">
@@ -87,7 +87,7 @@ export default function FilterBar({ filters, onChange, showEffectType, isMobile 
             fontSize: 10,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
-            color: "rgba(232,228,220,0.5)",
+            color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
             textDecoration: "underline",
           }}
         >Clear</button>

@@ -1,0 +1,104 @@
+/* Kernel design-system tokens — extracted from kernel-ds/packages/ui/src/styles.css.
+   Styles-only adoption: this site is dark-only, so Kernel's `.dark` surface set
+   is declared on :root. Fonts intentionally stay the site's own serif/mono stack. */
+
+:root {
+  --radius: 0.25rem;
+
+  --control-h-sm: 2rem;
+  --control-h: 2.375rem;
+  --control-h-lg: 2.75rem;
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-out: cubic-bezier(0.2, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.5, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* surfaces (Kernel dark) */
+  --background: oklch(0.2605 0.0180 165.4994);
+  --foreground: oklch(1.0000 0 0);
+  --card: oklch(0.2128 0.0209 162.2254);
+  --card-foreground: oklch(1.0000 0 0);
+  --popover: oklch(0.2128 0.0209 162.2254);
+  --popover-foreground: oklch(1.0000 0 0);
+  --primary: oklch(0.8722 0.1272 127.8039);
+  --primary-foreground: oklch(0.2128 0.0209 162.2254);
+  --secondary: oklch(0.3959 0.0135 167.1419);
+  --secondary-foreground: oklch(0.8722 0.1272 127.8039);
+  --muted: oklch(0.3959 0.0135 167.1419);
+  --muted-foreground: oklch(0.7700 0.0064 170.3662);
+  --accent: oklch(0.4373 0.1176 150.8612);
+  --accent-foreground: oklch(0.8722 0.1272 127.8039);
+  --destructive: oklch(0.5900 0.1848 24.1262);
+  --destructive-foreground: oklch(1.0000 0 0);
+  --border: oklch(0.3959 0.0135 167.1419);
+  --input: oklch(0.5620 0.0104 161.1304);
+  --ring: oklch(0.8722 0.1272 127.8039);
+
+  --shadow-color: oklch(0.04 0.018 165);
+  --shadow-sm: 0 1px 2px 0px color-mix(in oklch, var(--shadow-color) 28%, transparent);
+  --shadow-md: 0 2px 4px -1px color-mix(in oklch, var(--shadow-color) 34%, transparent);
+  --shadow-lg: 0 4px 8px -2px color-mix(in oklch, var(--shadow-color) 40%, transparent);
+
+  /* absolute scales (mode-independent) */
+  --neutral-50: oklch(0.985 0.002 165);
+  --neutral-100: oklch(0.967 0.003 165);
+  --neutral-200: oklch(0.922 0.004 165);
+  --neutral-300: oklch(0.860 0.005 165);
+  --neutral-400: oklch(0.708 0.007 168);
+  --neutral-500: oklch(0.562 0.010 161);
+  --neutral-600: oklch(0.460 0.012 163);
+  --neutral-700: oklch(0.370 0.014 164);
+  --neutral-800: oklch(0.270 0.017 165);
+  --neutral-900: oklch(0.213 0.021 162);
+  --neutral-950: oklch(0.165 0.020 163);
+
+  --success-300: oklch(0.808 0.118 168);
+  --success-400: oklch(0.712 0.140 168);
+  --success-500: oklch(0.600 0.142 168);
+  --warning-300: oklch(0.860 0.140 82);
+  --warning-400: oklch(0.810 0.155 78);
+  --warning-500: oklch(0.760 0.150 75);
+  --error-300: oklch(0.808 0.120 26);
+  --error-400: oklch(0.700 0.180 27);
+  --error-500: oklch(0.580 0.206 27);
+  --info-300: oklch(0.800 0.100 247);
+  --info-400: oklch(0.690 0.140 250);
+  --info-500: oklch(0.585 0.165 252);
+
+  --viz-plum-400: oklch(0.730 0.130 329);
+  --viz-plum-500: oklch(0.620 0.135 329);
+
+  --commodity-corn-300: oklch(0.828 0.128 81);
+  --commodity-corn-400: oklch(0.742 0.150 80);
+  --commodity-corn-500: oklch(0.660 0.150 80);
+  --commodity-corn: var(--commodity-corn-500);
+  --commodity-soy-300: oklch(0.820 0.105 148);
+  --commodity-soy-400: oklch(0.722 0.130 147);
+  --commodity-soy-500: oklch(0.618 0.128 146);
+  --commodity-soy: var(--commodity-soy-500);
+  --commodity-wheat-300: oklch(0.830 0.070 68);
+  --commodity-wheat-400: oklch(0.744 0.086 67);
+  --commodity-wheat-500: oklch(0.662 0.092 66);
+  --commodity-wheat: var(--commodity-wheat-500);
+
+  /* site-level aliases: text ramp derived from foreground so alphas stay consistent */
+  --fg-90: color-mix(in oklch, var(--foreground) 90%, transparent);
+  --fg-75: color-mix(in oklch, var(--foreground) 75%, transparent);
+  --fg-60: color-mix(in oklch, var(--foreground) 60%, transparent);
+  --fg-45: color-mix(in oklch, var(--foreground) 45%, transparent);
+  --fg-30: color-mix(in oklch, var(--foreground) 30%, transparent);
+  --surface-1: color-mix(in oklch, var(--foreground) 3%, transparent);
+  --surface-2: color-mix(in oklch, var(--foreground) 6%, transparent);
+  --border-subtle: color-mix(in oklch, var(--border) 60%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}
