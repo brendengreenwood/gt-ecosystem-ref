@@ -234,7 +234,7 @@ export function TradingHouseView({ selectedPersona, onSelectPersona, isMobile })
           color: "rgba(232,228,220,0.5)",
           margin: 0,
         }}>
-          How the trading house sees and operates on the ecosystem. Each role is a lens into the same underlying market.
+          How Cargill sees and operates on the ecosystem. The Merchant is the role this reference is built to onboard; the Originator is its closest counterpart. Cargill and Risk are the context they operate inside.
         </p>
       </div>
 
@@ -283,14 +283,18 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
     }}>
       {Object.values(PERSONAS).map(persona => {
         const isActive = selectedPersona === persona.id;
+        const isPrimary = persona.audience === "primary";
+        const badge = isPrimary ? "Primary user" : persona.audience === "secondary" ? "Secondary user" : null;
+        const restingBorder = isPrimary ? persona.color + "88" : "rgba(255,255,255,0.08)";
         return (
           <button
             key={persona.id}
+            aria-pressed={isActive}
             onClick={() => onSelect(isActive ? null : persona.id)}
             style={{
               flex: isMobile ? "1 1 calc(50% - 4px)" : "0 0 auto",
-              background: isActive ? `${persona.color}22` : "rgba(255,255,255,0.02)",
-              border: `1px solid ${isActive ? persona.color + "66" : "rgba(255,255,255,0.08)"}`,
+              background: isActive ? `${persona.color}22` : isPrimary ? `${persona.color}0D` : "rgba(255,255,255,0.02)",
+              border: `1px solid ${isActive ? persona.color + "66" : restingBorder}`,
               borderRadius: 8,
               padding: isMobile ? "12px 14px" : "14px 20px",
               cursor: "pointer",
@@ -303,9 +307,22 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
               <span style={{
                 fontFamily: "'Newsreader', Georgia, serif",
                 fontSize: isMobile ? 15 : 17,
-                color: isActive ? persona.accent : "rgba(232,228,220,0.75)",
+                color: isActive ? persona.accent : isPrimary ? "rgba(232,228,220,0.9)" : "rgba(232,228,220,0.75)",
                 fontWeight: 400,
               }}>{persona.shortTitle}</span>
+              {badge && (
+                <span style={{
+                  fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: 10,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: persona.accent,
+                  border: `1px solid ${persona.accent}66`,
+                  borderRadius: 4,
+                  padding: "2px 6px",
+                  marginLeft: "auto",
+                }}>{badge}</span>
+              )}
             </div>
             <div style={{
               fontSize: 11,

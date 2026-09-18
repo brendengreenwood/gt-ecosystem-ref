@@ -1,6 +1,9 @@
 import { createServer } from "vite";
 import React from "react";
 import { renderToString } from "react-dom/server";
+import { readFileSync } from "node:fs";
+
+const appSource = readFileSync(new URL("../src/App.jsx", import.meta.url), "utf8");
 
 const vite = await createServer({ root: process.cwd(), server: { middlewareMode: true }, appType: "custom" });
 const { ACTORS, COMMODITIES } = await vite.ssrLoadModule("/src/data/actors.js");
@@ -43,6 +46,10 @@ const cases = [
     html => html.includes("Clear") ? "Clear button rendered with no filters" : null],
   [`FilterBar[all-set]`, h(FilterBar, { filters: F({ commodity: "corn", lens: "merchant", effectType: "pressure" }), onChange: noop, showEffectType: true, isMobile: false }),
     html => html.includes('aria-pressed="true"') && /<button type="button"[^>]*>Clear<\/button>/.test(html) ? null : "missing aria-pressed=true or Clear button"],
+  // persona audience cases
+  ["TradingHouseView[default]", h(TH.TradingHouseView, { selectedPersona: "merchant", onSelectPersona: noop, isMobile: false }),
+    html => (html.split("Primary user").length - 1) === 1 && html.includes("Secondary user") ? null : "expected exactly one 'Primary user' badge and a 'Secondary user' badge"],
+  ["App[roles-default]", h(App), () => appSource.includes('setSelectedPersona] = useState("merchant")') ? null : "App.jsx does not default selectedPersona to \"merchant\""],
 ];
 let fail = 0;
 if (Object.keys(COMMODITIES).length === 3) console.log("ok", "COMMODITIES:3-keys", 3);

@@ -12,7 +12,7 @@ const NO_FILTERS = { commodity: null, lens: null, effectType: null };
 export default function App() {
   const [view, setView] = useState("the-house");
   const [selectedActor, setSelectedActor] = useState("producer");
-  const [selectedPersona, setSelectedPersona] = useState(null);
+  const [selectedPersona, setSelectedPersona] = useState("merchant");
   const [isMobile, setIsMobile] = useState(false);
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [filters, setFilters] = useState(NO_FILTERS);
