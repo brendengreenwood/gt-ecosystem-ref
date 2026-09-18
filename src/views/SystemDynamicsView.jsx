@@ -6,14 +6,14 @@ export function SystemDynamicsView({ isMobile, filters = {} }) {
   return (
     <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
       <h2 style={{
-        fontFamily: "'Newsreader', 'DM Serif Display', Georgia, serif",
+        fontFamily: "var(--font-sans)",
         fontSize: isMobile ? 24 : 28,
         fontWeight: 400,
         color: "var(--foreground)",
         margin: "0 0 8px",
       }}>System Dynamics</h2>
       <p style={{
-        fontFamily: "'Source Serif 4', Georgia, serif",
+        fontFamily: "var(--font-sans)",
         fontSize: isMobile ? 14 : 14.5,
         lineHeight: 1.7,
         color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
@@ -23,7 +23,7 @@ export function SystemDynamicsView({ isMobile, filters = {} }) {
       </p>
       {dynamics.length === 0 && (
         <p style={{
-          fontFamily: "'Source Serif 4', Georgia, serif",
+          fontFamily: "var(--font-sans)",
           fontSize: 13,
           fontStyle: "italic",
           color: "color-mix(in oklch, var(--foreground) 40%, transparent)",
@@ -50,12 +50,12 @@ function DynamicCard({ dynamic }) {
         borderRadius: "calc(var(--radius) * 2)",
         padding: "14px 18px",
         cursor: "pointer",
-        transition: "all var(--duration-base) var(--ease-out)",
+        transition: "background-color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out)",
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3 style={{
-          fontFamily: "'Newsreader', Georgia, serif",
+          fontFamily: "var(--font-sans)",
           fontSize: 16,
           fontWeight: 400,
           color: "var(--foreground)",
@@ -70,7 +70,7 @@ function DynamicCard({ dynamic }) {
       </div>
       {open && (
         <p style={{
-          fontFamily: "'Source Serif 4', Georgia, serif",
+          fontFamily: "var(--font-sans)",
           fontSize: 14.5,
           lineHeight: 1.75,
           color: "color-mix(in oklch, var(--foreground) 75%, transparent)",

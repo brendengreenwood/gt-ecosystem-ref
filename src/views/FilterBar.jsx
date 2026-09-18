@@ -14,12 +14,12 @@ function Chip({ label, color, selected, onClick }) {
         borderRadius: "var(--radius)",
         padding: "3px 9px",
         cursor: "pointer",
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "var(--font-sans)",
         fontSize: 10,
         letterSpacing: "0.08em",
         textTransform: "uppercase",
         color: selected ? "var(--foreground)" : "color-mix(in oklch, var(--foreground) 55%, transparent)",
-        transition: "all var(--duration-fast) var(--ease-out)",
+        transition: "background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out)",
       }}
     >{label}</button>
   );
@@ -30,7 +30,7 @@ function Group({ title, children }) {
     <div style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
       <span style={{
         fontSize: 9,
-        fontFamily: "'JetBrains Mono', monospace",
+        fontFamily: "var(--font-sans)",
         textTransform: "uppercase",
         letterSpacing: "0.15em",
         color: "color-mix(in oklch, var(--foreground) 30%, transparent)",
@@ -83,7 +83,7 @@ export default function FilterBar({ filters, onChange, showEffectType, isMobile 
             border: "none",
             padding: "3px 6px",
             cursor: "pointer",
-            fontFamily: "'JetBrains Mono', monospace",
+            fontFamily: "var(--font-sans)",
             fontSize: 10,
             letterSpacing: "0.08em",
             textTransform: "uppercase",
