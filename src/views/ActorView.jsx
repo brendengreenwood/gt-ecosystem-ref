@@ -9,7 +9,7 @@ import {
 import { ACTORS, CONFIDENCE, TIERS } from "../data/actors";
 import { PERSONAS } from "../data/personas";
 import { riskColor } from "../theme";
-import { ActorIcon } from "../icons";
+import { ActorIcon, Icon, appIcons } from "../icons";
 
 const NO_FILTERS = { commodity: null, lens: null, effectType: null };
 
@@ -81,7 +81,7 @@ export function ActorCard({ actor, onClick, isActive, isMobile, outsideLens, dim
     <button
       onClick={onClick}
       style={{
-        background: isActive ? "color-mix(in oklch, var(--primary) 9%, var(--card))" : "var(--card)",
+        background: isActive ? "var(--secondary)" : "var(--card)",
         border: `1px solid ${isActive ? "var(--primary)" : "var(--border)"}`,
         borderRadius: "calc(var(--radius) * 1.5)",
         padding: isMobile ? "10px 12px" : "12px 14px",
@@ -166,12 +166,11 @@ function StrategyRow({ strategy, actorId, filters }) {
           )}
         </div>
         <span style={{
-          color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
-          fontSize: 16,
-          transform: open ? "rotate(45deg)" : "rotate(0deg)",
+          color: "var(--muted-foreground)",
+          transform: open ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform var(--duration-base) var(--ease-out)",
           flexShrink: 0,
-        }}>+</span>
+        }}><Icon path={appIcons.chevron} size={18} /></span>
       </div>
       {open && (
         <div style={{ marginTop: 10 }}>
@@ -364,8 +363,8 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
           border: "1px solid color-mix(in oklch, var(--foreground) 6%, transparent)",
           marginBottom: 16,
         }}>
-          <div style={{ width: 6, height: 6, borderRadius: "50%", background: conf.color }} />
-          <span style={{ fontSize: 10, fontFamily: "var(--font-mono)", color: conf.color, letterSpacing: "0.05em" }}>
+          <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--muted-foreground)" }} />
+          <span style={{ fontSize: 11, fontFamily: "var(--font-sans)", color: "var(--muted-foreground)", fontWeight: 600 }}>
             {conf.label}
           </span>
         </div>

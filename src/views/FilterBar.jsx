@@ -10,7 +10,7 @@ function Chip({ label, color, selected, onClick }) {
       onClick={onClick}
       style={{
         minHeight: "var(--control-h-sm)",
-        background: selected ? `color-mix(in oklch, ${color} 16%, var(--card))` : "var(--card)",
+        background: selected ? "var(--secondary)" : "var(--card)",
         border: `1px solid ${selected ? color : "var(--border)"}`,
         borderRadius: "calc(var(--radius) * 1.5)",
         padding: "0 10px",

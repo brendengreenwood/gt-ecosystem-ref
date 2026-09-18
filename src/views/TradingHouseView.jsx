@@ -97,7 +97,7 @@ export function TheHouseView({ isMobile }) {
               <div key={i} style={{
                 padding: "12px 16px",
                 background: style.bg,
-                border: `1px solid color-mix(in oklch, ${style.color} 28%, var(--border))`,
+                border: `1px solid color-mix(in srgb, ${style.color} 28%, var(--border))`,
                 borderRadius: "calc(var(--radius) * 2)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
@@ -178,8 +178,8 @@ export function TheHouseView({ isMobile }) {
             return (
               <div key={idx} style={{
                 padding: "14px 18px",
-                background: `color-mix(in oklch, ${relPartner.color} 8%, var(--card))`,
-                border: `1px solid color-mix(in oklch, ${relPartner.color} 28%, var(--border))`,
+                background: "var(--card)",
+                border: `1px solid color-mix(in srgb, ${relPartner.color} 28%, var(--border))`,
                 borderRadius: "calc(var(--radius) * 2)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
@@ -277,7 +277,7 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
         const isActive = selectedPersona === persona.id;
         const isPrimary = persona.audience === "primary";
         const badge = isPrimary ? "Primary user" : persona.audience === "secondary" ? "Secondary user" : null;
-        const restingBorder = isPrimary ? `color-mix(in oklch, ${persona.color} 55%, transparent)` : "color-mix(in oklch, var(--border) 52%, transparent)";
+        const restingBorder = isPrimary ? "var(--primary)" : "var(--border)";
         return (
           <button
             key={persona.id}
@@ -285,8 +285,8 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
             onClick={() => onSelect(isActive ? null : persona.id)}
             style={{
               flex: isMobile ? "1 1 calc(50% - 4px)" : "0 0 auto",
-              background: isActive ? `color-mix(in oklch, ${persona.color} 14%, var(--card))` : isPrimary ? `color-mix(in oklch, ${persona.color} 7%, var(--card))` : "var(--card)",
-              border: `1px solid ${isActive ? `color-mix(in oklch, ${persona.color} 40%, transparent)` : restingBorder}`,
+              background: isActive ? "var(--secondary)" : "var(--card)",
+              border: `1px solid ${isActive ? "var(--primary)" : restingBorder}`,
               borderRadius: "calc(var(--radius) * 2)",
               padding: isMobile ? "12px 14px" : "14px 20px",
               cursor: "pointer",
@@ -308,8 +308,8 @@ function PersonaBar({ selectedPersona, onSelect, isMobile }) {
                   fontSize: 10,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: persona.accent,
-                  border: `1px solid ${persona.accent}66`,
+                  color: "var(--muted-foreground)",
+                  border: "1px solid var(--border)",
                   borderRadius: "var(--radius)",
                   padding: "2px 6px",
                   marginLeft: "auto",
@@ -339,8 +339,8 @@ function PersonaDashboard({ personaId, isMobile }) {
       animation: "fadeIn var(--duration-slow) var(--ease-out)",
       marginBottom: isMobile ? 24 : 36,
       padding: isMobile ? 16 : 24,
-      background: `linear-gradient(135deg, color-mix(in oklch, ${persona.color} 7%, var(--card)) 0%, var(--card) 60%)`,
-      border: `1px solid color-mix(in oklch, ${persona.color} 28%, var(--border))`,
+      background: "var(--card)",
+      border: "1px solid var(--border)",
       borderRadius: "calc(var(--radius) * 2)",
       boxShadow: "var(--shadow-sm)",
     }}>
@@ -429,7 +429,7 @@ function PersonaDashboard({ personaId, isMobile }) {
               <div key={i} style={{
                 padding: "10px 14px",
                 background: style.bg,
-                border: `1px solid color-mix(in oklch, ${style.color} 28%, var(--border))`,
+                border: `1px solid color-mix(in srgb, ${style.color} 28%, var(--border))`,
                 borderRadius: "calc(var(--radius) * 2)",
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
@@ -582,7 +582,7 @@ function PersonaDashboard({ personaId, isMobile }) {
         );
       })}
 
-      <div style={{ marginTop: 16, paddingTop: 16, borderTop: `1px solid color-mix(in oklch, ${persona.color} 22%, var(--border))` }}>
+      <div style={{ marginTop: 16, paddingTop: 16, borderTop: `1px solid color-mix(in srgb, ${persona.color} 22%, var(--border))` }}>
         <div style={{
           fontSize: 10,
           fontFamily: "var(--font-mono)",
@@ -598,7 +598,7 @@ function PersonaDashboard({ personaId, isMobile }) {
               <span key={id} style={{
                 padding: "4px 10px",
                 background: "color-mix(in oklch, var(--foreground) 6%, transparent)",
-                border: `1px solid color-mix(in oklch, ${persona.color} 32%, var(--border))`,
+                border: `1px solid color-mix(in srgb, ${persona.color} 32%, var(--border))`,
                 borderRadius: "var(--radius)",
                 fontSize: 11,
                 fontFamily: "var(--font-mono)",

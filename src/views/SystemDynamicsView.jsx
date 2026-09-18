@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { SYSTEM_DYNAMICS } from "../data/system-dynamics";
+import { Icon, appIcons } from "../icons";
 
 export function SystemDynamicsView({ isMobile, filters = {} }) {
   const dynamics = SYSTEM_DYNAMICS.filter(d => !filters.commodity || d.commodities.includes(filters.commodity));
@@ -60,11 +61,10 @@ function DynamicCard({ dynamic, index }) {
           margin: 0,
         }}>{dynamic.name}</h3>
         <span style={{
-          color: "color-mix(in oklch, var(--foreground) 25%, transparent)",
-          fontSize: 16,
-          transform: open ? "rotate(45deg)" : "rotate(0deg)",
+          color: "var(--muted-foreground)",
+          transform: open ? "rotate(180deg)" : "rotate(0deg)",
           transition: "transform var(--duration-base) var(--ease-out)",
-        }}>+</span>
+        }}><Icon path={appIcons.chevron} size={18} /></span>
       </div>
       {open && (
         <p className="editorial-copy" style={{
