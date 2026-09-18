@@ -347,12 +347,10 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
       <div style={{ marginBottom: isMobile ? 20 : 28 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6, flexWrap: "wrap" }}>
           <ActorIcon actor={actor} size={isMobile ? 24 : 28} color="var(--primary)" />
-          <h2 style={{
+          <h2 className="editorial-title" style={{
             fontFamily: "var(--font-sans)",
-            fontSize: isMobile ? 22 : 28,
-            fontWeight: 400,
             margin: 0,
-            color: actor.accent,
+            color: "var(--foreground)",
           }}>{actor.name}</h2>
           {outsideLens && <OutsideLensMark />}
         </div>
@@ -378,21 +376,15 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
         { label: "Primary Goal", content: actor.goal },
         { label: "Information Advantage", content: actor.infoAdvantage },
         { label: "Constraints", content: actor.constraints },
-      ].map(section => (
-        <div key={section.label} style={{ marginBottom: isMobile ? 16 : 20 }}>
-          <div style={{
-            fontSize: 9,
-            fontFamily: "var(--font-mono)",
-            textTransform: "uppercase",
-            letterSpacing: "0.15em",
-            color: "color-mix(in oklch, var(--foreground) 35%, transparent)",
-            marginBottom: 6,
-          }}>{section.label}</div>
-          <p style={{
+      ].map((section, index) => (
+        <div key={section.label} style={{
+          marginBottom: index === 0 ? (isMobile ? 28 : 40) : (isMobile ? 24 : 32),
+          maxWidth: index === 0 ? "var(--measure-reading)" : 760,
+        }}>
+          <div className="editorial-section-label" style={{ marginBottom: index === 0 ? 14 : 10 }}>{section.label}</div>
+          <p className={index === 0 ? "editorial-deck" : "editorial-copy"} style={{
             fontFamily: "var(--font-sans)",
-            fontSize: isMobile ? 14 : 14.5,
-            lineHeight: 1.75,
-            color: "color-mix(in oklch, var(--foreground) 80%, transparent)",
+            color: index === 0 ? "var(--fg-90)" : "var(--fg-75)",
             margin: 0,
           }}>{section.content}</p>
         </div>
@@ -400,7 +392,7 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
 
       {actor.relationships && actor.relationships.length > 0 && (
         <div style={{ marginBottom: isMobile ? 20 : 28 }}>
-          <div style={{
+          <div className="editorial-section-label" style={{
             fontSize: 9,
             fontFamily: "var(--font-mono)",
             textTransform: "uppercase",
@@ -438,7 +430,7 @@ export function ActorDetail({ actor, isMobile, filters = NO_FILTERS }) {
 
       {actor.strategies && actor.strategies.length > 0 && (
         <div>
-          <div style={{
+          <div className="editorial-section-label" style={{
             fontSize: 9,
             fontFamily: "var(--font-mono)",
             textTransform: "uppercase",

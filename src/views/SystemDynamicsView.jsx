@@ -5,19 +5,16 @@ export function SystemDynamicsView({ isMobile, filters = {} }) {
   const dynamics = SYSTEM_DYNAMICS.filter(d => !filters.commodity || d.commodities.includes(filters.commodity));
   return (
     <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
-      <h2 style={{
+      <div className="editorial-folio" style={{ marginBottom: 16 }}>{String(dynamics.length).padStart(2, "0")} forces shaping the market</div>
+      <h2 className="editorial-display" style={{
         fontFamily: "var(--font-sans)",
-        fontSize: isMobile ? 24 : 28,
-        fontWeight: 400,
         color: "var(--foreground)",
-        margin: "0 0 8px",
+        margin: "0 0 20px",
       }}>System Dynamics</h2>
-      <p style={{
+      <p className="editorial-deck" style={{
         fontFamily: "var(--font-sans)",
-        fontSize: isMobile ? 14 : 14.5,
-        lineHeight: 1.7,
-        color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
-        margin: "0 0 28px",
+        color: "var(--muted-foreground)",
+        margin: "0 0 48px",
       }}>
         The forces that shape how all the actors interact. These are the rules of the game.
       </p>
@@ -31,34 +28,34 @@ export function SystemDynamicsView({ isMobile, filters = {} }) {
         }}>No system dynamics for this filter.</p>
       )}
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {dynamics.map((d) => (
-          <DynamicCard key={d.name} dynamic={d} />
+        {dynamics.map((d, index) => (
+          <DynamicCard key={d.name} dynamic={d} index={index} />
         ))}
       </div>
     </div>
   );
 }
 
-function DynamicCard({ dynamic }) {
+function DynamicCard({ dynamic, index }) {
   const [open, setOpen] = useState(false);
   return (
     <div
       onClick={() => setOpen(!open)}
       style={{
-        background: "var(--card)",
-        border: `1px solid ${open ? "color-mix(in oklch, var(--primary) 55%, var(--border))" : "var(--border)"}`,
-        borderRadius: "calc(var(--radius) * 1.5)",
-        padding: "16px 18px",
-        boxShadow: open ? "var(--shadow-sm)" : "none",
+        background: open ? "var(--surface-1)" : "transparent",
+        borderTop: "1px solid var(--border)",
+        padding: "22px 0",
         cursor: "pointer",
-        transition: "background-color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out)",
+        transition: "background-color var(--duration-base) var(--ease-out), color var(--duration-base) var(--ease-out)",
       }}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "48px minmax(0, 1fr) 24px", gap: 16, alignItems: "center" }}>
+        <span className="editorial-folio">{String(index + 1).padStart(2, "0")}</span>
         <h3 style={{
           fontFamily: "var(--font-sans)",
-          fontSize: 15,
-          fontWeight: 600,
+          fontSize: "clamp(1.2rem, 2vw, 1.75rem)",
+          fontWeight: 650,
+          letterSpacing: "-0.025em",
           color: "var(--foreground)",
           margin: 0,
         }}>{dynamic.name}</h3>
@@ -70,12 +67,10 @@ function DynamicCard({ dynamic }) {
         }}>+</span>
       </div>
       {open && (
-        <p style={{
+        <p className="editorial-copy" style={{
           fontFamily: "var(--font-sans)",
-          fontSize: 14.5,
-          lineHeight: 1.75,
-          color: "color-mix(in oklch, var(--foreground) 75%, transparent)",
-          margin: "12px 0 0",
+          color: "var(--fg-75)",
+          margin: "18px 40px 2px 64px",
         }}>{dynamic.description}</p>
       )}
     </div>

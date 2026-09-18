@@ -8,22 +8,17 @@ export function TheHouseView({ isMobile }) {
   return (
     <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
       <div style={{
-        padding: isMobile ? 20 : 32,
-        background: `linear-gradient(135deg, color-mix(in oklch, ${house.color} 10%, var(--card)) 0%, var(--card) 60%)`,
-        border: `1px solid color-mix(in oklch, ${house.color} 32%, var(--border))`,
-        borderRadius: "calc(var(--radius) * 2)",
-        boxShadow: "var(--shadow-sm)",
-        marginBottom: isMobile ? 24 : 32,
+        padding: isMobile ? "24px 0 28px" : "48px 0 56px",
+        borderBottom: "1px solid var(--border)",
+        marginBottom: isMobile ? 28 : 48,
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
           <PersonaIcon persona={house} size={isMobile ? 36 : 48} color="var(--primary)" />
           <div>
-            <h2 style={{
+            <h2 className="editorial-display" style={{
               fontFamily: "var(--font-sans)",
-              fontSize: isMobile ? 26 : 34,
-              fontWeight: 400,
               margin: 0,
-              color: house.accent,
+              color: "var(--foreground)",
             }}>{house.title}</h2>
             <div style={{
               fontSize: 13,
@@ -34,12 +29,10 @@ export function TheHouseView({ isMobile }) {
           </div>
         </div>
 
-        <p style={{
+        <p className="editorial-deck" style={{
           fontFamily: "var(--font-sans)",
-          fontSize: isMobile ? 15 : 16,
-          lineHeight: 1.8,
-          color: "color-mix(in oklch, var(--foreground) 85%, transparent)",
-          margin: "0 0 24px",
+          color: "var(--fg-90)",
+          margin: "28px 0 36px",
         }}>{house.role}</p>
 
         <div style={{
@@ -85,7 +78,7 @@ export function TheHouseView({ isMobile }) {
       </div>
 
       <div style={{ marginBottom: isMobile ? 24 : 32 }}>
-        <div style={{
+        <div className="editorial-section-label" style={{
           fontSize: 9,
           fontFamily: "var(--font-mono)",
           textTransform: "uppercase",
@@ -138,7 +131,7 @@ export function TheHouseView({ isMobile }) {
       </div>
 
       <div style={{ marginBottom: isMobile ? 24 : 32 }}>
-        <div style={{
+        <div className="editorial-section-label" style={{
           fontSize: 9,
           fontFamily: "var(--font-mono)",
           textTransform: "uppercase",
@@ -170,7 +163,7 @@ export function TheHouseView({ isMobile }) {
       </div>
 
       <div>
-        <div style={{
+        <div className="editorial-section-label" style={{
           fontSize: 9,
           fontFamily: "var(--font-mono)",
           textTransform: "uppercase",
@@ -221,19 +214,16 @@ export function TheHouseView({ isMobile }) {
 export function TradingHouseView({ selectedPersona, onSelectPersona, isMobile }) {
   return (
     <div style={{ animation: "fadeIn var(--duration-slow) var(--ease-out)" }}>
-      <div style={{ marginBottom: isMobile ? 20 : 28 }}>
-        <h2 style={{
+      <div style={{ marginBottom: isMobile ? 28 : 48 }}>
+        <div className="editorial-folio" style={{ marginBottom: 16 }}>Cargill field guide · four operating lenses</div>
+        <h2 className="editorial-display" style={{
           fontFamily: "var(--font-sans)",
-          fontSize: isMobile ? 24 : 28,
-          fontWeight: 400,
           color: "var(--foreground)",
-          margin: "0 0 8px",
-        }}>Trading House View</h2>
-        <p style={{
+          margin: "0 0 20px",
+        }}>Inside the house</h2>
+        <p className="editorial-deck" style={{
           fontFamily: "var(--font-sans)",
-          fontSize: isMobile ? 14 : 14.5,
-          lineHeight: 1.7,
-          color: "color-mix(in oklch, var(--foreground) 50%, transparent)",
+          color: "var(--muted-foreground)",
           margin: 0,
         }}>
           How Cargill sees and operates on the ecosystem. The Merchant is the role this reference is built to onboard; the Originator is its closest counterpart. Cargill and Risk are the context they operate inside.
@@ -357,12 +347,10 @@ function PersonaDashboard({ personaId, isMobile }) {
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
         <PersonaIcon persona={persona} size={isMobile ? 28 : 36} color="var(--primary)" />
         <div>
-          <h2 style={{
+          <h2 className="editorial-title" style={{
             fontFamily: "var(--font-sans)",
-            fontSize: isMobile ? 22 : 28,
-            fontWeight: 400,
             margin: 0,
-            color: persona.accent,
+            color: "var(--foreground)",
           }}>{persona.title}</h2>
           <div style={{
             fontSize: 12,
@@ -373,12 +361,10 @@ function PersonaDashboard({ personaId, isMobile }) {
         </div>
       </div>
 
-      <p style={{
+      <p className="editorial-deck" style={{
         fontFamily: "var(--font-sans)",
-        fontSize: isMobile ? 14 : 15,
-        lineHeight: 1.75,
-        color: "color-mix(in oklch, var(--foreground) 80%, transparent)",
-        margin: "0 0 20px",
+        color: "var(--fg-90)",
+        margin: "24px 0 32px",
       }}>{persona.role}</p>
 
       <div style={{
@@ -424,7 +410,7 @@ function PersonaDashboard({ personaId, isMobile }) {
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        <div style={{
+        <div className="editorial-section-label" style={{
           fontSize: 9,
           fontFamily: "var(--font-mono)",
           textTransform: "uppercase",
@@ -477,7 +463,7 @@ function PersonaDashboard({ personaId, isMobile }) {
       </div>
 
       <div style={{ marginBottom: 20 }}>
-        <div style={{
+        <div className="editorial-section-label" style={{
           fontSize: 9,
           fontFamily: "var(--font-mono)",
           textTransform: "uppercase",
