@@ -457,9 +457,24 @@ for (const br of BASELINE.crossRefs) {
   }
 }
 
-// --- competitor cardinality (mandatory once the actors exist)
+// --- Cargill perspective: named actors, no anonymous "ABCD" voice
+for (const id of ["trading-house", "adm", "bunge", "ldc"]) {
+  const a = actorById.get(id);
+  if (!a) fail(`required actor "${id}" is missing`);
+  else if (typeof a.company !== "string" || !a.company) fail(`actor ${id} has no company field`);
+}
+for (const a of ACTORS) if (a.role.includes("ABCD itself")) fail(`actor ${a.id} role still reads as "ABCD itself"`);
+for (const [key, p] of Object.entries(PERSONAS)) if (p.role.includes("ABCD itself")) fail(`persona ${key} role still reads as "ABCD itself"`);
+
+// demo fixture used by the Phase 3 walkthrough: Cargill -> Bunge, pressure, corn
+const fixture = CROSS_REFERENCES.some(
+  (r) => r.sourceActor === "trading-house" && r.effects.some((e) => e.targetActor === "bunge" && e.type === "pressure" && e.commodities.includes("corn"))
+);
+if (!fixture) fail('demo fixture missing: no trading-house effect on bunge with type "pressure" tagged "corn"');
+
+// --- competitor cardinality (mandatory)
 for (const id of ["adm", "bunge", "ldc"]) {
-  if (!actorById.has(id)) { console.log(`note: actor "${id}" not present yet; competitor cardinality check skipped`); continue; }
+  if (!actorById.has(id)) { fail(`actor "${id}" is missing; competitor cardinality cannot be checked`); continue; }
   const toHouse = new Set(
     CROSS_REFERENCES.filter((r) => r.sourceActor === id && r.effects.some((e) => e.targetActor === "trading-house")).map((r) => r.strategy)
   );

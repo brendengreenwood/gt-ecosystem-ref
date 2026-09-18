@@ -338,13 +338,178 @@ export const CROSS_REFERENCES = [
       { targetActor: "broker", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "Required hedging programs generate advisory and execution business. The broker helps the farmer meet lender requirements while maximizing flexibility." },
     ]
   },
+  // --- Cargill (trading-house) new strategies
+  {
+    sourceActor: "trading-house",
+    strategy: "Competitor Flow Read-Through",
+    effects: [
+      { targetActor: "adm", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "ADM's quarterly Ag Services & Oilseeds disclosures and port-level export inspections tell Cargill which export slots ADM filled and which it did not. ADM cannot prevent this; the data is public." },
+      { targetActor: "bunge", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "Bunge's post-merger segment reporting and Viterra's known terminal lineups let Cargill infer how much Black Sea and Canadian origin Bunge is routing to which destinations." },
+      { targetActor: "ldc", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "LDC's published volumes and press releases on the Ohio and Indiana assets tell Cargill where LDC's Midwest bid will show up next." },
+      { targetActor: "exporter", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "Weekly export inspections by port reveal which houses are short of bushels at the Gulf and PNW. Independent exporters can anticipate competing terminal basis moves." },
+    ]
+  },
+  {
+    sourceActor: "trading-house",
+    strategy: "Origination Share Defense",
+    effects: [
+      { targetActor: "bunge", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "Cargill bidding up basis in contested Corn Belt and Prairie draw areas raises the cost of Bunge retaining Viterra's farmer relationships during integration — exactly when Bunge would prefer to hold margin." },
+      { targetActor: "adm", type: "pressure", commodities: ["corn", "soybeans"], description: "Cargill holding origination share while ADM runs a cost program forces ADM to choose between paying up and ceding local volume." },
+      { targetActor: "country-elevator", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "Two or more houses bidding for the same draw area is the best basis environment an independent elevator sees. Sell into the competition." },
+      { targetActor: "producer", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "Contested territories get stronger farm-gate basis. Producers near Cargill and Bunge/Viterra overlap should shop bids aggressively." },
+    ]
+  },
+  {
+    sourceActor: "trading-house",
+    strategy: "Private-Company Information Edge",
+    effects: [
+      { targetActor: "adm", type: "constraint", commodities: ["corn", "soybeans", "wheat"], description: "ADM must disclose segment margins and guidance; Cargill does not. ADM trades against a competitor whose book it cannot see while its own is public." },
+      { targetActor: "bunge", type: "constraint", commodities: ["corn", "soybeans", "wheat"], description: "Bunge's merger-synergy commitments are public and dated; Cargill's competitive response is not. Bunge cannot tell whether Cargill's bidding is a campaign or noise." },
+      { targetActor: "ldc", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "LDC is the only competitor with comparable discretion. Both private houses read each other from bids and asset announcements rather than filings." },
+      { targetActor: "speculator", type: "constraint", commodities: ["corn", "soybeans", "wheat"], description: "The largest physical participant does not report positions the way public competitors do. Speculators reading commercial positioning from disclosures see an incomplete picture." },
+    ]
+  },
+  // --- ADM
+  {
+    sourceActor: "adm",
+    strategy: "Crush Margin Defense",
+    effects: [
+      { targetActor: "trading-house", type: "signal", commodities: ["soybeans"], description: "ADM idling or closing crush capacity (Kershaw, SC in 2025) tells Cargill where soybean basis will soften and where its own plants can pick up throughput." },
+      { targetActor: "country-elevator", type: "pressure", commodities: ["soybeans"], description: "Elevators near an idled ADM crush plant lose their best local soybean bid and must ship further to find one." },
+      { targetActor: "processor", type: "signal", commodities: ["soybeans"], description: "When the largest crusher cuts run-rates, meal and oil supply tightens for everyone. Competing processors can price product more firmly." },
+    ]
+  },
+  {
+    sourceActor: "adm",
+    strategy: "North American Export Program",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "ADM bidding harder for export bushels after a weak 2025 export year lifts interior basis in draw areas Cargill's Gulf and PNW programs share." },
+      { targetActor: "exporter", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "A large house rebuilding export volume competes for the same vessel slots and destination sales an independent exporter relies on." },
+      { targetActor: "terminal-elevator", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "ADM short of export bushels is a throughput customer for river terminals it does not own." },
+    ]
+  },
+  {
+    sourceActor: "adm",
+    strategy: "Carbohydrate Solutions Cross-Subsidy",
+    effects: [
+      { targetActor: "trading-house", type: "constraint", commodities: ["corn"], description: "Corn-milling profits let ADM hold merchandising share through a margin trough. Cargill cannot expect ADM to retreat from corn origination just because grain margins are weak." },
+      { targetActor: "processor", type: "signal", commodities: ["corn"], description: "ADM's milling run-rates are a steady corn demand anchor in the Eastern Corn Belt regardless of merchandising conditions." },
+    ]
+  },
+  {
+    sourceActor: "adm",
+    strategy: "Network Consolidation",
+    effects: [
+      { targetActor: "trading-house", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "ADM exiting domestic trading in China and Dubai leaves destination relationships for Cargill and others to pick up." },
+      { targetActor: "ldc", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "The same exits open destination share for LDC, whose merchandising model needs fewer owned assets to serve those markets." },
+    ]
+  },
+  {
+    sourceActor: "adm",
+    strategy: "Cost-Program Execution",
+    effects: [
+      { targetActor: "trading-house", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "If ADM's cost program reaches origination headcount, Cargill originators will see thinner ADM coverage in specific territories before any disclosure says so." },
+      { targetActor: "country-elevator", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "A large house cutting field staff leans harder on independent elevators to aggregate for it — a chance to negotiate better terms." },
+    ]
+  },
+  // --- Bunge (incl. Viterra)
+  {
+    sourceActor: "bunge",
+    strategy: "Post-Merger Origination Integration",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "Bunge paying up to keep Viterra's farmers through integration raises the basis Cargill must match in overlapping Canadian and U.S. draw areas." },
+      { targetActor: "country-elevator", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "Viterra country assets rebranding and re-systemizing under Bunge is the moment their farmers are most likely to shop bids. Independent elevators nearby should be visible." },
+      { targetActor: "producer", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "Farmers who delivered to Viterra are being courted to stay. Integration windows are a good time to renegotiate." },
+    ]
+  },
+  {
+    sourceActor: "bunge",
+    strategy: "Oilseed Crush Leadership",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["soybeans"], description: "The largest crusher running hard keeps meal and oil supply ample and caps the crush margin Cargill's own plants can earn." },
+      { targetActor: "processor", type: "pressure", commodities: ["soybeans"], description: "Independent crushers compete against Bunge's scale economics in product markets they cannot influence." },
+      { targetActor: "feeder", type: "opportunity", commodities: ["soybeans"], description: "Sustained high crush volumes mean ample soybean meal — a structural tailwind for feed costs." },
+    ]
+  },
+  {
+    sourceActor: "bunge",
+    strategy: "Black Sea / Canadian Origin Optionality",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["wheat"], description: "Bunge can now serve wheat importers from Black Sea or Canadian origins it did not control before the merger, directly eroding the origin-arbitrage edge Cargill held over it." },
+      { targetActor: "exporter", type: "pressure", commodities: ["wheat"], description: "U.S. wheat exporters face a competitor with cheaper alternative origins for the same destination business." },
+      { targetActor: "producer", type: "constraint", commodities: ["wheat"], description: "When a major buyer can source wheat from three continents, U.S. wheat basis has a lower ceiling regardless of local supply." },
+    ]
+  },
+  {
+    sourceActor: "bunge",
+    strategy: "Divestiture-Driven Reshaping",
+    effects: [
+      { targetActor: "trading-house", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "Every Bunge disposal tells Cargill which regions Bunge does not intend to defend — and which are worth bidding for share in." },
+      { targetActor: "ldc", type: "opportunity", commodities: ["corn", "wheat"], description: "Regulator-forced sales handed LDC the Hungary and Poland grains and oilseeds businesses at a forced-seller price." },
+    ]
+  },
+  {
+    sourceActor: "bunge",
+    strategy: "Destination Marketing Relationships",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "Bunge bundling grain and crush products for the same importers competes for destination share Cargill previously split with Viterra and Bunge separately." },
+      { targetActor: "exporter", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "Importers consolidating suppliers favour houses that can deliver grain and meal together — a disadvantage for single-product exporters." },
+    ]
+  },
+  // --- Louis Dreyfus Company
+  {
+    sourceActor: "ldc",
+    strategy: "Asset-Light Merchandising",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "A competitor that can move origins quickly without stranded assets undercuts Cargill on flexibility in thin-margin destination business." },
+      { targetActor: "terminal-elevator", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "A merchandising-led house needs third-party throughput. LDC is a natural customer for terminals Cargill and ADM do not own." },
+      { targetActor: "logistics", type: "opportunity", commodities: ["corn", "soybeans", "wheat"], description: "Less owned logistics means more chartered capacity — good for railroads and barge lines with spare tonnage." },
+    ]
+  },
+  {
+    sourceActor: "ldc",
+    strategy: "Selective Crush Build-Out",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["soybeans"], description: "LDC's Ohio soybean complex is a new crush bid in a draw area where Cargill and ADM already compete for bushels." },
+      { targetActor: "producer", type: "opportunity", commodities: ["soybeans"], description: "A new crush plant in the Eastern Corn Belt strengthens local soybean basis for producers in its draw area." },
+      { targetActor: "country-elevator", type: "signal", commodities: ["soybeans"], description: "Elevators near the new complex gain a direct crush outlet but also face a competitor originating straight from farmers." },
+    ]
+  },
+  {
+    sourceActor: "ldc",
+    strategy: "Acquired-Asset Arbitrage",
+    effects: [
+      { targetActor: "trading-house", type: "signal", commodities: ["corn", "wheat"], description: "LDC entering Danube-basin wheat and corn origination via the Bunge remedy adds a competitor in origins where Cargill competes with Black Sea supply." },
+      { targetActor: "bunge", type: "pressure", commodities: ["corn", "wheat"], description: "Bunge created a stronger competitor with its own former assets; LDC now bids against Bunge in Hungary and Poland." },
+    ]
+  },
+  {
+    sourceActor: "ldc",
+    strategy: "River / Rail Logistics Optimization",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "An LDC-controlled Indiana export point bids for Eastern Corn Belt bushels that historically flowed through the river system to Cargill's Gulf terminals." },
+      { targetActor: "terminal-elevator", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "River terminals lose throughput when a competitor's interior export facility captures bushels before they reach the river." },
+      { targetActor: "logistics", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "LDC routing between river, rail, and its Indiana facility on freight spreads makes rail demand from that region more variable." },
+    ]
+  },
+  {
+    sourceActor: "ldc",
+    strategy: "Destination Marketing Relationships",
+    effects: [
+      { targetActor: "trading-house", type: "pressure", commodities: ["corn", "soybeans", "wheat"], description: "LDC competing on service and price in emerging-market destinations pressures the destination margins Cargill earns from owned logistics." },
+      { targetActor: "exporter", type: "signal", commodities: ["corn", "soybeans", "wheat"], description: "LDC's destination presence is a signal of where merchandising-only competition is strongest — and where owned export capacity is not a moat." },
+    ]
+  },
 ];
 
 const ACTOR_NAMES = {
   "producer": "Producer / Farmer",
   "country-elevator": "Country Elevator",
   "terminal-elevator": "Terminal Elevator",
-  "trading-house": "Trading House",
+  "trading-house": "Cargill",
+  "adm": "ADM",
+  "bunge": "Bunge (incl. Viterra)",
+  "ldc": "Louis Dreyfus Company",
   "processor": "Processor",
   "feeder": "Livestock Feeder",
   "exporter": "Exporter",

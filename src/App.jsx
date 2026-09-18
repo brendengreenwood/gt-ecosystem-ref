@@ -3,6 +3,9 @@ import { ACTORS, TIERS } from "./data/actors";
 import { TheHouseView, TradingHouseView } from "./views/TradingHouseView";
 import { ActorCard, ActorDetail, MobileActorSelector } from "./views/ActorView";
 import { SystemDynamicsView } from "./views/SystemDynamicsView";
+import { SYSTEM_DYNAMICS } from "./data/system-dynamics";
+
+const STRATEGY_COUNT = ACTORS.reduce((n, a) => n + a.strategies.length, 0);
 
 export default function App() {
   const [view, setView] = useState("the-house");
@@ -81,7 +84,7 @@ export default function App() {
           lineHeight: 1.6,
         }}>
           How grain gets priced, who prices it, and why they make the moves they make.
-          {!isMobile && <span style={{ color: "rgba(232,228,220,0.3)" }}> 12 actors. 10 system dynamics. ~60 strategies.</span>}
+          {!isMobile && <span style={{ color: "rgba(232,228,220,0.3)" }}> {ACTORS.length} actors. {SYSTEM_DYNAMICS.length} system dynamics. {STRATEGY_COUNT} strategies.</span>}
         </p>
 
         <div style={{ display: "flex", gap: 20, borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: 0 }}>
